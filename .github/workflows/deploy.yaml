@@ -24,7 +24,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Build deploy branch from public_html
+      - name: Build deploy branch with public_html folder
         run: |
           git worktree remove --force .deploy-worktree || true
           rm -rf .deploy-worktree
@@ -43,7 +43,8 @@ jobs:
           git checkout -B deploy
           git rm -rf . >/dev/null 2>&1 || true
 
-          cp -R ../public_html/. .
+          mkdir -p public_html
+          cp -R ../public_html/. ./public_html/
           touch .nojekyll
 
           git add -A
