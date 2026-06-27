@@ -1,4 +1,4 @@
-name: Sync Main to Deploy Branch
+name: Publish public_html to deploy branch
 
 on:
   push:
@@ -19,6 +19,33 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Push main content to deploy branch
+      - name: Configure git user
         run: |
-          git push origin HEAD:deploy --force
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Build deploy branch from public_html
+        run: |
+          git worktree remove --force .deploy-worktree || true
+          rm -rf .deploy-worktree
+          git fetch origin deploy || true
+
+          if git show-ref --verify --quiet refs/remotes/origin/deploy; then
+            git worktree add .deploy-worktree origin/deploy
+          else
+            git worktree add --detach .deploy-worktree
+            cd .deploy-worktree
+            git checkout --orphan deploy
+            cd ..
+          fi
+
+          cd .deploy-worktree
+          git checkout -B deploy
+          git rm -rf . >/dev/null 2>&1 || true
+
+          cp -R ../public_html/. .
+          touch .nojekyll
+
+          git add -A
+          git commit -m "Deploy from main (${GITHUB_SHA})" || echo "No changes to commit"
+          git push origin deploy --force
