@@ -5,23 +5,43 @@ const state = {
   repos: [],
   reposError: false,
   featuredRepoNames: [
-    "quickelt",
     "webapp_gas_mais_barato",
+    "article_scout_agent",
+    "single_node_dw",
+    "multi_tenant_app",
+    "data_scout",
     "pandas_pipeline_agent_flow_generator",
-    "awesome_list_faith_tech_materials",
+  ],
+  featuredOpenSourceSites: [
+    {
+      name: "Can I Code Without AI?",
+      url: "https://canicodewithoutai.site/",
+      description: {
+        pt: "Pratique programação sem assistência de IA e evolua com aprendizado ativo.",
+        en: "Practice coding without AI assistance and improve through active learning.",
+      },
+    },
   ],
 };
+let sectionObserver = null;
 
 async function init() {
   await loadContent();
   bindLanguageButtons();
+  initSectionObserver();
   await loadRepos();
 }
 
 async function loadContent() {
-  const response = await fetch("./api/content.php");
-  state.data = await response.json();
-  renderPage();
+  try {
+    const response = await fetch(`./api/content.php?v=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    state.data = await response.json();
+    clearStatus();
+    renderPage();
+  } catch (error) {
+    showStatus(getLoadErrorMessage());
+  }
 }
 
 function bindLanguageButtons() {
@@ -46,25 +66,97 @@ function renderPage() {
     if (typeof value === "string") node.textContent = value;
   });
 
-  document.querySelectorAll(".lang-btn").forEach((btn) => {
-    btn.classList.toggle("is-active", btn.dataset.lang === state.lang);
+  document.querySelectorAll("[data-i18n-attr]").forEach((node) => {
+    const [attr, key] = node.dataset.i18nAttr.split(":");
+    if (!attr || !key) return;
+    const value = key.split(".").reduce((acc, part) => acc?.[part], t);
+    if (typeof value === "string") node.setAttribute(attr, value);
   });
 
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    const isActive = btn.dataset.lang === state.lang;
+    btn.classList.toggle("is-active", isActive);
+    btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+  });
+
+  syncCvLink(t);
   renderProducts(t.portfolio.items);
   renderTimeline(t.experience.items);
   renderRepos();
+  refreshNavStateFromHash();
+}
+
+function showStatus(message) {
+  const statusNode = document.getElementById("page-status");
+  if (!statusNode) return;
+  statusNode.hidden = false;
+  statusNode.textContent = message;
+}
+
+function clearStatus() {
+  const statusNode = document.getElementById("page-status");
+  if (!statusNode) return;
+  statusNode.hidden = true;
+  statusNode.textContent = "";
+}
+
+function getLoadErrorMessage() {
+  const statusNode = document.getElementById("page-status");
+  if (!statusNode) return "Could not load dynamic content.";
+  const lang = state.lang === "en" ? "en" : "pt";
+  const fallback = lang === "en" ? statusNode.dataset.loadErrorEn : statusNode.dataset.loadErrorPt;
+  return fallback || "Could not load dynamic content.";
+}
+
+function syncCvLink(t) {
+  const cvLink = document.getElementById("cv-download-link");
+  if (!cvLink) return;
+
+  const fallbackUrl = "./assets/resume/Resume_Renan_De_Moraes_EN_AI_Engineer.pdf";
+  const fallbackFile = "Resume_Renan_De_Moraes_EN_AI_Engineer.pdf";
+
+  cvLink.setAttribute("href", t.hero.cvUrl || fallbackUrl);
+  cvLink.setAttribute("download", t.hero.cvDownload || fallbackFile);
 }
 
 function renderProducts(items) {
+  const t = state.data?.[state.lang];
   const container = document.getElementById("products");
+  if (!container || !t) return;
+
+  container.className = "product-list";
   container.innerHTML = "";
   items.forEach((item) => {
+    const productUrl = typeof item.url === "string" ? item.url : "";
+    const itemTitle = escapeHtml(item.title);
+    const itemText = escapeHtml(item.text);
+    const ctaText = escapeHtml(t.portfolio.viewProduct || "Visit product");
+    const safeProductUrl = escapeHtml(productUrl);
+    const cardInner = `
+      <div class="product-copy">
+        <h3>${itemTitle}</h3>
+        <p>${itemText}</p>
+      </div>
+      ${productUrl ? `<span class="product-link">${ctaText}</span>` : ""}
+    `;
+
+    if (productUrl) {
+      container.insertAdjacentHTML(
+        "beforeend",
+        `
+        <a class="product-item product-item-link" href="${safeProductUrl}" target="_blank" rel="noopener noreferrer">
+          ${cardInner}
+        </a>
+      `
+      );
+      return;
+    }
+
     container.insertAdjacentHTML(
       "beforeend",
       `
-      <article class="card">
-        <h3>${escapeHtml(item.title)}</h3>
-        <p>${escapeHtml(item.text)}</p>
+      <article class="product-item">
+        ${cardInner}
       </article>
     `
     );
@@ -113,15 +205,13 @@ async function loadRepos() {
 function renderRepos() {
   const t = state.data?.[state.lang];
   const featuredContainer = document.getElementById("featured-repos");
-  const otherContainer = document.getElementById("repos");
-  if (!t || !featuredContainer || !otherContainer) return;
+  if (!t || !featuredContainer) return;
 
   featuredContainer.innerHTML = "";
-  otherContainer.innerHTML = "";
 
   if (state.reposError) {
     const fallback = t.opensource.empty || "Could not load.";
-    otherContainer.innerHTML = `<article class="card"><p>${escapeHtml(fallback)}</p></article>`;
+    featuredContainer.innerHTML = `<article class="card"><p>${escapeHtml(fallback)}</p></article>`;
     return;
   }
 
@@ -131,14 +221,11 @@ function renderRepos() {
     state.featuredRepoNames.map((name, index) => [name.toLowerCase(), index])
   );
   const featured = [];
-  const others = [];
 
   state.repos.forEach((repo) => {
     if (featuredOrder.has(repo.name.toLowerCase())) {
       featured.push(repo);
-      return;
     }
-    others.push(repo);
   });
 
   featured.sort(
@@ -146,8 +233,18 @@ function renderRepos() {
       featuredOrder.get(a.name.toLowerCase()) - featuredOrder.get(b.name.toLowerCase())
   );
 
-  renderRepoCards(featuredContainer, featured.slice(0, 4), t, true);
-  renderRepoCards(otherContainer, others.slice(0, 6), t, false);
+  const fallbackRepos = state.repos
+    .filter((repo) => !repo.fork && !repo.archived)
+    .slice(0, 6);
+  const githubRepos = featured.length ? featured : fallbackRepos;
+
+  const featuredSites = state.featuredOpenSourceSites.map((site) => ({
+    name: site.name,
+    description: site.description?.[state.lang] || site.description?.pt || t.opensource.noDescription,
+    html_url: site.url,
+  }));
+
+  renderRepoCards(featuredContainer, [...githubRepos, ...featuredSites].slice(0, 7), t, true);
 }
 
 function renderRepoCards(container, repos, t, isFeatured) {
@@ -165,7 +262,9 @@ function renderRepoCards(container, repos, t, isFeatured) {
         }
         <h3>${escapeHtml(repo.name)}</h3>
         <p>${escapeHtml(repo.description || t.opensource.noDescription)}</p>
-        <p class="meta">
+        ${
+          typeof repo.stargazers_count === "number" && typeof repo.forks_count === "number"
+            ? `<p class="meta">
           <span class="repo-meta">
             <img class="icon" src="./assets/icons/star.png" alt="" aria-hidden="true" />
             ${repo.stargazers_count}
@@ -175,8 +274,10 @@ function renderRepoCards(container, repos, t, isFeatured) {
             <img class="icon" src="./assets/icons/git.png" alt="" aria-hidden="true" />
             ${repo.forks_count}
           </span>
-        </p>
-        <a href="${repo.html_url}" target="_blank" rel="noreferrer">${escapeHtml(
+        </p>`
+            : ""
+        }
+        <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(
           t.opensource.viewRepo
         )}</a>
       </article>
@@ -192,6 +293,52 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function initSectionObserver() {
+  if (sectionObserver) return;
+
+  const sectionIds = ["home", "about", "portfolio", "opensource", "experience", "contact"];
+  const sections = sectionIds
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  if (!sections.length) return;
+
+  sectionObserver = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible?.target?.id) return;
+      setActiveNavLink(visible.target.id);
+    },
+    {
+      root: null,
+      rootMargin: "-45% 0px -45% 0px",
+      threshold: [0.2, 0.4, 0.6],
+    }
+  );
+
+  sections.forEach((section) => sectionObserver.observe(section));
+  window.addEventListener("hashchange", refreshNavStateFromHash);
+}
+
+function refreshNavStateFromHash() {
+  const hashId = window.location.hash?.replace("#", "");
+  if (hashId) setActiveNavLink(hashId);
+}
+
+function setActiveNavLink(sectionId) {
+  document.querySelectorAll(".menu a").forEach((link) => {
+    const isActive = link.getAttribute("href") === `#${sectionId}`;
+    link.classList.toggle("is-active", isActive);
+    if (isActive) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
 }
 
 init();
