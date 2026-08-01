@@ -3,11 +3,15 @@ declare(strict_types=1);
 
 $stylePath = __DIR__ . '/assets/css/style.css';
 $scriptPath = __DIR__ . '/assets/js/app.js';
+$copilotPath = __DIR__ . '/assets/js/copilot-heuristics.js';
+
 $styleVersion = is_file($stylePath) ? (string) filemtime($stylePath) : '1';
 $scriptVersion = is_file($scriptPath) ? (string) filemtime($scriptPath) : '1';
+$copilotVersion = is_file($copilotPath) ? (string) filemtime($copilotPath) : '1';
+
 $siteUrl = 'https://renan-de-moraes.com/';
 $pageTitle = 'Renan De Moraes | Data & AI Engineer';
-$pageDescription = 'Portfolio de Renan De Moraes com projetos em Data Engineering, IA, BI, produtos SaaS e open source.';
+$pageDescription = 'Portfolio IDE de Renan De Moraes - Data & AI Engineer, Fabric, Azure, Databricks, LangGraph e Migrações High-Volume.';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -15,27 +19,22 @@ $pageDescription = 'Portfolio de Renan De Moraes com projetos em Data Engineerin
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
-    <meta name="theme-color" content="#050505" />
+    <meta name="theme-color" content="#1e1e1e" />
     <title><?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?></title>
     <meta name="description" content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="Renan De Moraes" />
-    <meta name="keywords" content="Renan De Moraes, Data Engineer, AI Engineer, BI, SQL, Python, Portfólio, Open Source" />
+    <meta name="keywords" content="Renan De Moraes, Data Engineer, AI Engineer, Microsoft Fabric, Azure, Databricks, LangGraph, Python, SQL" />
     <link rel="canonical" href="<?php echo htmlspecialchars($siteUrl, ENT_QUOTES, 'UTF-8'); ?>" />
 
+    <!-- Open Graph / Social -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="Renan De Moraes" />
     <meta property="og:title" content="<?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?>" />
     <meta property="og:description" content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>" />
     <meta property="og:url" content="<?php echo htmlspecialchars($siteUrl, ENT_QUOTES, 'UTF-8'); ?>" />
-    <meta property="og:image" content="<?php echo htmlspecialchars($siteUrl . 'assets/icons/home.png', ENT_QUOTES, 'UTF-8'); ?>" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="<?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?>" />
-    <meta name="twitter:description" content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>" />
-    <meta name="twitter:image" content="<?php echo htmlspecialchars($siteUrl . 'assets/icons/home.png', ENT_QUOTES, 'UTF-8'); ?>" />
 
     <script type="application/ld+json">
       {
@@ -53,159 +52,125 @@ $pageDescription = 'Portfolio de Renan De Moraes com projetos em Data Engineerin
     <link rel="stylesheet" href="./assets/css/style.css?v=<?php echo rawurlencode($styleVersion); ?>" />
   </head>
   <body>
-    <div
-      id="page-status"
-      class="status-message container"
-      role="status"
-      aria-live="polite"
-      data-load-error-pt="Nao foi possivel carregar o conteudo dinamico. Exibindo versao reduzida."
-      data-load-error-en="Could not load dynamic content. Showing a reduced fallback version."
-      hidden
-    ></div>
-    <header class="topbar">
-      <div class="container topbar-content">
-        <a class="brand" href="#home">Renan De Moraes</a>
-        <nav aria-label="Navegacao principal" data-i18n-attr="aria-label:ui.mainNavAria">
-          <ul class="menu">
-            <li>
-              <a href="#home">
-                <img class="icon icon-nav" src="./assets/icons/home.png" alt="" aria-hidden="true" />
-                <span data-i18n="nav.home">Home</span>
-              </a>
-            </li>
-            <li>
-              <a href="#about">
-                <img class="icon icon-nav" src="./assets/icons/personal-card.png" alt="" aria-hidden="true" />
-                <span data-i18n="nav.about">Sobre</span>
-              </a>
-            </li>
-            <li>
-              <a href="#portfolio">
-                <img class="icon icon-nav" src="./assets/icons/portfolio.png" alt="" aria-hidden="true" />
-                <span data-i18n="nav.portfolio">Portfólio</span>
-              </a>
-            </li>
-            <li>
-              <a href="#experience">
-                <img class="icon icon-nav" src="./assets/icons/suitcase.png" alt="" aria-hidden="true" />
-                <span data-i18n="nav.experience">Experiência</span>
-              </a>
-            </li>
-            <li>
-              <a href="#contact">
-                <img class="icon icon-nav" src="./assets/icons/email.png" alt="" aria-hidden="true" />
-                <span data-i18n="nav.contact">Contato</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <div class="lang-switch" role="group" aria-label="Selecao de idioma" data-i18n-attr="aria-label:ui.languageSwitchAria">
-          <button type="button" class="lang-btn is-active" data-lang="pt" aria-pressed="true">PT</button>
-          <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+    <div id="app-root">
+      <!-- Window Title Bar -->
+      <header class="window-header">
+        <div class="window-controls">
+          <span class="win-btn win-close" title="Close"></span>
+          <span class="win-btn win-min" title="Minimize"></span>
+          <span class="win-btn win-max" title="Maximize"></span>
         </div>
-      </div>
-    </header>
-
-    <main id="main-content">
-      <section id="home" class="hero container section-home">
-        <p class="kicker" data-i18n="hero.kicker">Builder Mindset</p>
-        <h1 data-i18n="profile.headline">
-          Python | SQL | Developer | IA | Open Source | Engenharia de Dados | Consultor
-        </h1>
-        <p class="lead" data-i18n="profile.summary"></p>
-        <div class="hero-actions">
-          <a
-            class="btn"
-            href="https://www.linkedin.com/in/renan-moraes-data-ai-engineer/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Abrir perfil no LinkedIn em nova aba"
-            data-i18n-attr="aria-label:hero.linkedinAria"
-          >
-            <img class="icon" src="./assets/icons/linkedin.png" alt="" aria-hidden="true" />
-            LinkedIn
-          </a>
-          <a
-            class="btn"
-            href="https://github.com/mpraes"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Abrir perfil no GitHub em nova aba"
-            data-i18n-attr="aria-label:hero.githubAria"
-          >
-            <img class="icon" src="./assets/icons/github.png" alt="" aria-hidden="true" />
-            GitHub
-          </a>
-          <a
-            id="cv-download-link"
-            class="btn btn-alt"
-            href="./assets/resume/Resume_Renan_De_Moraes_EN_AI_Engineer.pdf"
-            download="Resume_Renan_De_Moraes_EN_AI_Engineer.pdf"
-          >
-            <img class="icon" src="./assets/icons/resume.png" alt="" aria-hidden="true" />
-            <span data-i18n="hero.cv">Download CV</span>
-          </a>
+        <div class="window-title">
+          <span>renan-de-moraes-portfolio - Visual Studio Code</span>
         </div>
-      </section>
+        <div class="window-search" id="cmd-palette-btn" title="Search files (Ctrl+K)">
+          <span>🔍 Search workspace... (Ctrl+K)</span>
+        </div>
+      </header>
 
-      <section id="about" class="section container section-about">
-        <h2>
-          <img class="icon icon-title" src="./assets/icons/personal-card.png" alt="" aria-hidden="true" />
-          <span data-i18n="about.title">Sobre</span>
-        </h2>
-        <p data-i18n="about.text"></p>
-      </section>
+      <!-- Main IDE Layout Body -->
+      <div class="ide-body">
+        <!-- Far Left Activity Bar -->
+        <aside class="activity-bar" aria-label="Activity Bar">
+          <div class="activity-nav-group">
+            <button class="activity-icon-btn active" id="btn-toggle-explorer" title="Explorer (Ctrl+Shift+E)">
+              <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 7h10v2H7zm0 4h10v2H7zm0 4h7v2H7z"/></svg>
+            </button>
+            <button class="activity-icon-btn" id="btn-toggle-search" title="Search Workspace">
+              <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </button>
+            <button class="activity-icon-btn" id="btn-toggle-copilot" title="Renan Copilot AI Chatbot">
+              <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2zm1 14.5h-2v-2h2v2zm0-4h-2V7h2v5.5z"/></svg>
+            </button>
+          </div>
+          <div class="activity-nav-group">
+            <button class="activity-icon-btn" title="Settings">
+              <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            </button>
+          </div>
+        </aside>
 
-      <section id="portfolio" class="section container section-portfolio">
-        <h2>
-          <img class="icon icon-title" src="./assets/icons/portfolio.png" alt="" aria-hidden="true" />
-          <span data-i18n="portfolio.title">SaaS & Products</span>
-        </h2>
-        <div id="products" class="product-list"></div>
-      </section>
+        <!-- Left Explorer Sidebar Pane -->
+        <section class="sidebar-pane" id="sidebar-pane" aria-label="File Explorer">
+          <div class="sidebar-header">
+            <span>Explorer: Renan-Portfolio</span>
+          </div>
+          <div class="sidebar-search-box">
+            <input type="text" id="file-search-input" class="sidebar-search-input" placeholder="Filter files..." />
+          </div>
+          <div class="file-tree" id="file-tree">
+            <!-- Rendered dynamically by app.js -->
+          </div>
+        </section>
 
-      <section id="opensource" class="section container section-opensource">
-        <h2>
-          <img class="icon icon-title" src="./assets/icons/git.png" alt="" aria-hidden="true" />
-          <span data-i18n="opensource.title">Open Source</span>
-        </h2>
-        <p class="muted" data-i18n="opensource.subtitle"></p>
-        <h3 class="subsection-title" data-i18n="opensource.featuredTitle">Principais Repositórios</h3>
-        <div id="featured-repos" class="grid"></div>
-      </section>
+        <!-- Middle Code Editor Area -->
+        <main class="editor-pane" aria-label="Code Editor Space">
+          <!-- Top Editor Tabs Bar -->
+          <nav class="tab-bar" id="tab-bar" aria-label="Open Tabs">
+            <!-- Tabs rendered dynamically -->
+          </nav>
 
-      <section id="experience" class="section container section-experience">
-        <h2>
-          <img class="icon icon-title" src="./assets/icons/suitcase.png" alt="" aria-hidden="true" />
-          <span data-i18n="experience.title">Experiência</span>
-        </h2>
-        <div id="timeline" class="timeline"></div>
-      </section>
+          <!-- Breadcrumbs Bar -->
+          <div class="breadcrumbs-bar" id="breadcrumbs-bar">
+            <span>renan-de-moraes</span>
+            <span class="breadcrumb-sep">&gt;</span>
+            <span id="breadcrumb-active-path">src > profile.ts</span>
+          </div>
 
-      <section id="contact" class="section container section-contact">
-        <h2>
-          <img class="icon icon-title" src="./assets/icons/email.png" alt="" aria-hidden="true" />
-          <span data-i18n="contact.title">Contato</span>
-        </h2>
-        <p>
-          <span data-i18n="contact.cta">Vamos construir algo util juntos.</span>
-          <a href="mailto:renan.de.moraes77@gmail.com">renan.de.moraes77@gmail.com</a>
-        </p>
-      </section>
-    </main>
+          <!-- Code Buffer Container -->
+          <div class="editor-buffer-container" id="editor-container">
+            <div class="line-numbers" id="line-numbers"></div>
+            <div class="line-content" id="line-content">
+              <!-- Content rendered dynamically -->
+            </div>
+          </div>
+        </main>
 
-    <footer class="footer">
-      <div class="container">
-        <small>&copy; <?php echo date('Y'); ?> Renan De Moraes</small>
+        <!-- Right Copilot Chatbot Pane -->
+        <aside class="copilot-pane" id="copilot-pane" aria-label="AI Assistant">
+          <div class="copilot-header">
+            <span>🤖 Renan AI Copilot</span>
+            <span style="font-size:10px; opacity:0.7;">[Heuristic]</span>
+          </div>
+          <div class="copilot-messages" id="copilot-messages">
+            <div class="chat-bubble chat-bubble-bot">
+              👋 Hi! I'm Renan's AI Copilot assistant. Ask me anything about his experience in <strong>Microsoft Fabric</strong>, <strong>LangGraph AI Agents</strong>, <strong>SAP Migrations</strong>, or technical articles!
+            </div>
+          </div>
+          <div class="chat-chips-container" id="copilot-chips" style="padding: 0 12px 10px;">
+            <span class="chat-chip" data-query="fabric">🔥 Fabric & Lakehouse</span>
+            <span class="chat-chip" data-query="ai agent">🤖 LangGraph AI</span>
+            <span class="chat-chip" data-query="sap migration">⚡ SAP 200M+ Migration</span>
+            <span class="chat-chip" data-query="blog">📝 Articles / Blog</span>
+            <span class="chat-chip" data-query="contact">📫 Contact</span>
+          </div>
+          <div class="copilot-input-area">
+            <form class="copilot-input-form" id="copilot-form">
+              <input type="text" class="copilot-input" id="copilot-input" placeholder="Ask a question..." autocomplete="off" />
+              <button type="submit" class="copilot-send-btn">Send</button>
+            </form>
+          </div>
+        </aside>
       </div>
-    </footer>
 
-    <noscript>
-      <div class="container section">
-        <p>Ative o JavaScript para carregar portfolio, experiencia e repositorios dinamicamente.</p>
-      </div>
-    </noscript>
+      <!-- Bottom Status Bar -->
+      <footer class="status-bar">
+        <div class="status-left">
+          <span class="status-item" id="git-branch-status">🌿 main*</span>
+          <span class="status-item">🟢 Ready</span>
+          <span class="status-item">Errors: 0</span>
+        </div>
+        <div class="status-right">
+          <span class="status-item">UTF-8</span>
+          <span class="status-item" id="language-mode-status">TypeScript</span>
+          <span class="status-item">Ln 1, Col 1</span>
+          <span class="status-item" style="background: rgba(255,255,255,0.15); padding: 0 6px; border-radius:2px;">💼 Open for Hire</span>
+        </div>
+      </footer>
+    </div>
 
-    <script src="./assets/js/app.js?v=<?php echo rawurlencode($scriptVersion); ?>" defer></script>
+    <!-- Application JavaScripts -->
+    <script src="./assets/js/app.js?v=<?php echo rawurlencode($scriptVersion); ?>"></script>
+    <script src="./assets/js/copilot-heuristics.js?v=<?php echo rawurlencode($copilotVersion); ?>"></script>
   </body>
 </html>
