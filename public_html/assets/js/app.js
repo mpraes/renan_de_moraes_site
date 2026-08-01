@@ -28,6 +28,7 @@
       folder: 'projects',
       folderName: 'projects (featured & starred) ⭐',
       files: [
+        { path: 'projects/deepsql-pro.md', name: 'deepsql-pro.md', title: 'DeepSQL Pro 🔒', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },
         { path: 'projects/lumenex.md', name: 'lumenex.md', title: 'Lumenex / Lumen 🔒', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },
         { path: 'projects/verometric.md', name: 'verometric.md', title: 'Verometric 🔒', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },
         { path: 'projects/canicodewithoutai.md', name: 'canicodewithoutai.md', title: 'Can I Code Without AI? 🤖', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },

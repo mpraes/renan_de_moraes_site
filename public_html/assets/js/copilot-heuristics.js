@@ -148,6 +148,22 @@ Explore os principais projetos do Renan na pasta <strong>projects/</strong>:<br>
       }
     },
     {
+      intent: 'DEEPSQL_PRO',
+      keywords: ['deepsql', 'deepsql.pro', 'deepsql pro', 'sql optimization', 'query tuning'],
+      response: {
+        en: `⚡ <strong>DeepSQL Pro (Advanced SQL Optimization Platform):</strong><br>
+Renan built <strong>DeepSQL Pro</strong>, an advanced web platform designed for deep SQL query plan analysis, AST parsing, and automated performance tuning.<br><br>
+• 🌐 <strong>Live Platform</strong>: <a href="https://deepsql.pro/" target="_blank" rel="noopener" style="color: var(--accent-cyan);">deepsql.pro</a><br>
+• 🔒 <strong>GitHub Repo (Private)</strong>: <a href="https://github.com/mpraes/deepsql_pro_site" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes/deepsql_pro_site</a><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/deepsql-pro.md')">📄 Open DeepSQL Pro File</button>`,
+        pt: `⚡ <strong>DeepSQL Pro (Plataforma Avançada de Otimização de SQL):</strong><br>
+Renan criou o <strong>DeepSQL Pro</strong>, uma plataforma web de alta performance para análise profunda de planos de execução SQL, parser AST e otimização de consultas.<br><br>
+• 🌐 <strong>Plataforma no Ar</strong>: <a href="https://deepsql.pro/" target="_blank" rel="noopener" style="color: var(--accent-cyan);">deepsql.pro</a><br>
+• 🔒 <strong>Repositório GitHub (Privado)</strong>: <a href="https://github.com/mpraes/deepsql_pro_site" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes/deepsql_pro_site</a><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/deepsql-pro.md')">📄 Abrir Arquivo do DeepSQL Pro</button>`
+      }
+    },
+    {
       intent: 'LUMENEX',
       keywords: ['lumenex', 'lumen', 'lumenex.com.br', 'biblical exegesis', 'exegese'],
       response: {
