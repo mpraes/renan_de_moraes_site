@@ -161,6 +161,7 @@ $pageDescription = 'Portfolio IDE de Renan De Moraes - Data & AI Engineer, Fabri
           <span class="status-item">Errors: 0</span>
         </div>
         <div class="status-right">
+          <span class="status-item" id="lang-toggle-btn" style="background: rgba(56,189,248,0.2); color: var(--accent-cyan); font-weight: bold; padding: 0 8px; border-radius:3px; cursor:pointer;" title="Switch Language (EN / PT-BR)">🌐 EN / PT-BR</span>
           <span class="status-item">UTF-8</span>
           <span class="status-item" id="language-mode-status">TypeScript</span>
           <span class="status-item">Ln 1, Col 1</span>

@@ -1,12 +1,13 @@
 /**
- * VS Code IDE Layout & Workspace Manager - Renan De Moraes Portfolio
+ * VS Code IDE Layout & Workspace Manager - Renan De Moraes Portfolio (Bilingual EN / PT-BR)
  */
 
 (function () {
   'use strict';
 
   // Global State
-  let portfolioData = null;
+  let portfolioRawData = null;
+  let currentLang = localStorage.getItem('ide_lang') || 'en';
   const openTabs = ['src/profile.ts'];
   let activeTab = 'src/profile.ts';
   const articleCache = {};
@@ -35,7 +36,11 @@
     }
   ];
 
-  // Helper: Find File Object
+  function getActiveLangData() {
+    if (!portfolioRawData) return null;
+    return portfolioRawData[currentLang] || portfolioRawData['en'];
+  }
+
   function findFileObj(path) {
     for (const group of fileRegistry) {
       const found = group.files.find(f => f.path === path);
@@ -44,12 +49,12 @@
     return null;
   }
 
-  // Initialize Portfolio
   async function init() {
     try {
       const res = await fetch('./assets/data/content.json');
-      portfolioData = await res.json();
-      window.PortfolioData = portfolioData;
+      portfolioRawData = await res.json();
+      window.PortfolioRawData = portfolioRawData;
+      window.getCurrentLang = () => currentLang;
     } catch (e) {
       console.error('Failed to load portfolio content data', e);
     }
@@ -57,10 +62,27 @@
     renderFileTree();
     renderTabs();
     renderActiveFileContent();
+    renderLangToggle();
     setupEventListeners();
   }
 
-  // Render Left Explorer Tree
+  function renderLangToggle() {
+    const langElem = document.getElementById('lang-toggle-btn');
+    if (langElem) {
+      langElem.textContent = currentLang === 'en' ? '🌐 EN / PT-BR' : '🌐 PT-BR / EN';
+    }
+  }
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'pt' : 'en';
+    localStorage.setItem('ide_lang', currentLang);
+    renderLangToggle();
+    renderFileTree();
+    renderTabs();
+    renderActiveFileContent();
+    if (window.onLangChange) window.onLangChange(currentLang);
+  }
+
   function renderFileTree(filter = '') {
     const treeContainer = document.getElementById('file-tree');
     if (!treeContainer) return;
@@ -94,7 +116,6 @@
 
     treeContainer.innerHTML = html;
 
-    // Attach File Click Handlers
     treeContainer.querySelectorAll('.tree-file-item').forEach(item => {
       item.addEventListener('click', () => {
         const path = item.getAttribute('data-path');
@@ -103,7 +124,6 @@
     });
   }
 
-  // Tab Management: Open File
   function openFile(path) {
     if (!openTabs.includes(path)) {
       openTabs.push(path);
@@ -114,7 +134,6 @@
     renderActiveFileContent();
   }
 
-  // Tab Management: Close Tab
   function closeTab(path, event) {
     if (event) event.stopPropagation();
     const idx = openTabs.indexOf(path);
@@ -129,7 +148,6 @@
     renderActiveFileContent();
   }
 
-  // Render Top Tab Bar
   function renderTabs() {
     const tabBar = document.getElementById('tab-bar');
     const breadcrumbsPath = document.getElementById('breadcrumb-active-path');
@@ -156,14 +174,12 @@
 
     tabBar.innerHTML = html;
 
-    // Active File Header Info
     const currentFile = findFileObj(activeTab);
     if (currentFile) {
       if (breadcrumbsPath) breadcrumbsPath.textContent = currentFile.path.replace('/', ' > ');
       if (statusLang) statusLang.textContent = currentFile.lang;
     }
 
-    // Attach Tab Click Events
     tabBar.querySelectorAll('.editor-tab').forEach(tab => {
       tab.addEventListener('click', (e) => {
         if (e.target.classList.contains('tab-close-btn')) return;
@@ -183,41 +199,41 @@
     });
   }
 
-  // Render Active File Content in Code Buffer
   async function renderActiveFileContent() {
     const lineNumbers = document.getElementById('line-numbers');
     const lineContent = document.getElementById('line-content');
     if (!lineNumbers || !lineContent) return;
 
-    if (!activeTab || !portfolioData) {
+    const data = getActiveLangData();
+
+    if (!activeTab || !data) {
       lineNumbers.innerHTML = '1';
       lineContent.innerHTML = `<p style="color: var(--text-muted); padding: 20px;">Select a file from the explorer on the left to view its contents.</p>`;
       return;
     }
 
     if (activeTab === 'src/profile.ts') {
-      renderProfileTS(lineNumbers, lineContent);
+      renderProfileTS(data.profile, lineNumbers, lineContent);
     } else if (activeTab === 'src/experience.json') {
-      renderExperienceJSON(lineNumbers, lineContent);
+      renderExperienceJSON(data.experience, lineNumbers, lineContent);
     } else if (activeTab === 'src/projects.py') {
-      renderProjectsPY(lineNumbers, lineContent);
+      renderProjectsPY(data.projects, lineNumbers, lineContent);
     } else if (activeTab === 'src/skills.sql') {
-      renderSkillsSQL(lineNumbers, lineContent);
+      renderSkillsSQL(data.skills, lineNumbers, lineContent);
     } else if (activeTab === 'src/contact.md') {
-      renderContactMD(lineNumbers, lineContent);
+      renderContactMD(data.contact, lineNumbers, lineContent);
     } else if (activeTab.startsWith('articles/')) {
       await renderMarkdownArticle(activeTab, lineNumbers, lineContent);
     }
   }
 
-  // Render profile.ts
-  function renderProfileTS(lineNumElem, contentElem) {
-    const p = portfolioData.profile;
+  function renderProfileTS(p, lineNumElem, contentElem) {
     const code = `/**
  * @file profile.ts
  * @author ${p.name}
  * @role ${p.title}
  * @location ${p.location}
+ * @language ${currentLang.toUpperCase()}
  */
 
 export interface SeniorConsultant {
@@ -250,21 +266,19 @@ export const engineer: SeniorConsultant = {
         <p style="line-height: 1.7;">${escapeHtml(p.summary)}</p>
         
         <div style="margin: 16px 0;">
-          <h4 style="color: var(--text-high); margin-bottom: 8px;">Top Engineering Focus:</h4>
+          <h4 style="color: var(--text-high); margin-bottom: 8px;">${currentLang === 'pt' ? 'Foco de Engenharia:' : 'Top Engineering Focus:'}</h4>
           <div class="tech-badge-container">${skillsBadges}</div>
         </div>
 
         <div style="margin-top: 16px;">
-          <h4 style="color: var(--text-high); margin-bottom: 8px;">Certifications:</h4>
+          <h4 style="color: var(--text-high); margin-bottom: 8px;">${currentLang === 'pt' ? 'Certificações:' : 'Certifications:'}</h4>
           <ul style="list-style: none; padding: 0; margin: 0; line-height: 1.8;">${certsList}</ul>
         </div>
       </div>
     `;
   }
 
-  // Render experience.json
-  function renderExperienceJSON(lineNumElem, contentElem) {
-    const exp = portfolioData.experience;
+  function renderExperienceJSON(exp, lineNumElem, contentElem) {
     const jsonStr = JSON.stringify(exp, null, 2);
     updateLineNumbers(lineNumElem, jsonStr);
 
@@ -279,14 +293,12 @@ export const engineer: SeniorConsultant = {
     `).join('');
 
     contentElem.innerHTML = `
-      <div style="margin-bottom: 16px; color: var(--syn-comment); font-size: 12px;">// experience.json - Professional Career History (${exp.length} positions)</div>
+      <div style="margin-bottom: 16px; color: var(--syn-comment); font-size: 12px;">// experience.json - ${currentLang === 'pt' ? 'Histórico Profissional' : 'Professional Career History'} (${exp.length} ${currentLang === 'pt' ? 'posições' : 'positions'})</div>
       <div class="code-card-grid">${expCards}</div>
     `;
   }
 
-  // Render projects.py
-  function renderProjectsPY(lineNumElem, contentElem) {
-    const proj = portfolioData.projects;
+  function renderProjectsPY(proj, lineNumElem, contentElem) {
     const pythonCode = `import dataclasses
 from typing import List
 
@@ -311,7 +323,7 @@ ${proj.map(p => `    Project(title="${p.title}", tech_stack=${JSON.stringify(p.t
           ${p.tech.map(t => `<span class="tech-badge">${escapeHtml(t)}</span>`).join('')}
         </div>
         <div style="margin-top: 14px;">
-          <a href="${p.link}" target="_blank" rel="noopener" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none; font-size: 12px;">🔗 View Repository →</a>
+          <a href="${p.link}" target="_blank" rel="noopener" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none; font-size: 12px;">🔗 ${currentLang === 'pt' ? 'Ver Repositório' : 'View Repository'} →</a>
         </div>
       </div>
     `).join('');
@@ -319,15 +331,13 @@ ${proj.map(p => `    Project(title="${p.title}", tech_stack=${JSON.stringify(p.t
     contentElem.innerHTML = `
       <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 12px;">${escapeHtml(pythonCode)}</pre>
       <div style="margin-top: 20px; border-top: 1px dashed var(--ide-border); padding-top: 16px;">
-        <h3 style="color: var(--text-high); margin-top: 0;">Featured Engineering & Open Source Projects</h3>
+        <h3 style="color: var(--text-high); margin-top: 0;">${currentLang === 'pt' ? 'Projetos em Destaque & Open Source' : 'Featured Engineering & Open Source Projects'}</h3>
         <div class="code-card-grid">${projCards}</div>
       </div>
     `;
   }
 
-  // Render skills.sql
-  function renderSkillsSQL(lineNumElem, contentElem) {
-    const s = portfolioData.skills;
+  function renderSkillsSQL(s, lineNumElem, contentElem) {
     const sqlCode = `-- skills.sql - Categorized Data Engineering & AI Stack
 
 SELECT 'Data Engineering' AS category, ARRAY[${s.dataEngineering.map(x => `'${x}'`).join(', ')}] AS stack
@@ -343,22 +353,22 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
     contentElem.innerHTML = `
       <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-keyword); font-size: 13px;">${escapeHtml(sqlCode)}</pre>
       <div style="margin-top: 24px; border-top: 1px dashed var(--ide-border); padding-top: 16px; font-family: var(--font-ui);">
-        <h3 style="color: var(--text-high); margin-top: 0;">Technical Capabilities Matrix</h3>
+        <h3 style="color: var(--text-high); margin-top: 0;">${currentLang === 'pt' ? 'Matriz de Habilidades Técnicas' : 'Technical Capabilities Matrix'}</h3>
         <div class="code-card-grid">
           <div class="code-card">
-            <h4 style="color: var(--accent-cyan); margin-top: 0;">🏗️ Data Architecture & Engineering</h4>
+            <h4 style="color: var(--accent-cyan); margin-top: 0;">🏗️ ${currentLang === 'pt' ? 'Arquitetura de Dados' : 'Data Architecture & Engineering'}</h4>
             <div class="tech-badge-container">${s.dataEngineering.map(x => `<span class="tech-badge">${escapeHtml(x)}</span>`).join('')}</div>
           </div>
           <div class="code-card">
-            <h4 style="color: var(--accent-cyan); margin-top: 0;">🗄️ Enterprise Databases</h4>
+            <h4 style="color: var(--accent-cyan); margin-top: 0;">🗄️ ${currentLang === 'pt' ? 'Bancos de Dados Enterprise' : 'Enterprise Databases'}</h4>
             <div class="tech-badge-container">${s.databases.map(x => `<span class="tech-badge">${escapeHtml(x)}</span>`).join('')}</div>
           </div>
           <div class="code-card">
-            <h4 style="color: var(--accent-cyan); margin-top: 0;">🤖 Applied AI & Programming</h4>
+            <h4 style="color: var(--accent-cyan); margin-top: 0;">🤖 ${currentLang === 'pt' ? 'IA Aplicada & Linguagens' : 'Applied AI & Programming'}</h4>
             <div class="tech-badge-container">${s.aiAndLanguages.map(x => `<span class="tech-badge">${escapeHtml(x)}</span>`).join('')}</div>
           </div>
           <div class="code-card">
-            <h4 style="color: var(--accent-cyan); margin-top: 0;">📊 Business Intelligence & Analytics</h4>
+            <h4 style="color: var(--accent-cyan); margin-top: 0;">📊 ${currentLang === 'pt' ? 'Business Intelligence & Analytics' : 'Business Intelligence & Analytics'}</h4>
             <div class="tech-badge-container">${s.biAndAnalytics.map(x => `<span class="tech-badge">${escapeHtml(x)}</span>`).join('')}</div>
           </div>
         </div>
@@ -366,24 +376,22 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
     `;
   }
 
-  // Render contact.md
-  function renderContactMD(lineNumElem, contentElem) {
-    const c = portfolioData.contact;
-    const mdCode = `# Contact Information & Links
+  function renderContactMD(c, lineNumElem, contentElem) {
+    const mdCode = `# Contact Information & Links (${currentLang.toUpperCase()})
 
 - **Email**: [${c.email}](mailto:${c.email})
 - **Phone / Mobile**: ${c.phone}
 - **LinkedIn**: [${c.linkedin}](${c.linkedin})
 - **GitHub**: [${c.github}](${c.github})
 - **Location**: ${c.location}
-- **Status**: 🟢 Open for Senior Consulting & Lead Engineering Roles`;
+- **Status**: 🟢 ${currentLang === 'pt' ? 'Disponível para Projetos & Consultoria' : 'Open for Senior Consulting & Lead Engineering Roles'}`;
 
     updateLineNumbers(lineNumElem, mdCode);
 
     contentElem.innerHTML = `
       <div class="markdown-article">
-        <h1>📫 Contact & Professional Links</h1>
-        <p style="font-size: 15px; color: var(--text-main); margin-bottom: 24px;">Feel free to reach out for data architecture consulting, AI engineering projects, or technical collaboration.</p>
+        <h1>📫 ${currentLang === 'pt' ? 'Contato e Links Profissionais' : 'Contact & Professional Links'}</h1>
+        <p style="font-size: 15px; color: var(--text-main); margin-bottom: 24px;">${currentLang === 'pt' ? 'Entre em contato para projetos de arquitetura de dados, engenharia de IA ou consultoria técnica.' : 'Feel free to reach out for data architecture consulting, AI engineering projects, or technical collaboration.'}</p>
         
         <div class="code-card" style="max-width: 500px;">
           <ul style="list-style: none; padding: 0; margin: 0; line-height: 2.2; font-size: 14px;">
@@ -398,7 +406,6 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
     `;
   }
 
-  // Render Markdown Article from articles/ directory
   async function renderMarkdownArticle(path, lineNumElem, contentElem) {
     let mdText = articleCache[path];
     if (!mdText) {
@@ -412,13 +419,10 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
     }
 
     updateLineNumbers(lineNumElem, mdText);
-
-    // Simple Markdown Parser for Articles
     const parsedHtml = parseSimpleMarkdown(mdText);
     contentElem.innerHTML = `<div class="markdown-article">${parsedHtml}</div>`;
   }
 
-  // Update Line Numbers Gutter
   function updateLineNumbers(lineNumElem, text) {
     const linesCount = text.split('\n').length;
     let numbersHtml = '';
@@ -428,7 +432,6 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
     lineNumElem.innerHTML = numbersHtml;
   }
 
-  // Simple Markdown Parser
   function parseSimpleMarkdown(md) {
     let html = md
       .replace(/^# (.*$)/gim, '<h1>$1</h1>')
@@ -439,16 +442,13 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
       .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" target="_blank" rel="noopener" style="color: var(--accent-cyan);">$1</a>')
       .replace(/^-\s+(.*$)/gim, '<li>$1</li>');
 
-    // Code blocks handling
     html = html.replace(/```python([\s\S]*?)```/gim, '<pre><code class="language-python">$1</code></pre>');
     html = html.replace(/```([\s\S]*?)```/gim, '<pre><code>$1</code></pre>');
 
     return html;
   }
 
-  // Event Listeners for UI Actions
   function setupEventListeners() {
-    // Search input filter in sidebar
     const searchInput = document.getElementById('file-search-input');
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
@@ -456,17 +456,18 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
       });
     }
 
-    // Command palette / header search click
+    const langToggleBtn = document.getElementById('lang-toggle-btn');
+    if (langToggleBtn) {
+      langToggleBtn.addEventListener('click', toggleLanguage);
+    }
+
     const cmdBtn = document.getElementById('cmd-palette-btn');
     if (cmdBtn) {
       cmdBtn.addEventListener('click', () => {
-        if (searchInput) {
-          searchInput.focus();
-        }
+        if (searchInput) searchInput.focus();
       });
     }
 
-    // Toggle Sidebar
     const toggleExplorer = document.getElementById('btn-toggle-explorer');
     const sidebar = document.getElementById('sidebar-pane');
     if (toggleExplorer && sidebar) {
@@ -476,7 +477,6 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
       });
     }
 
-    // Toggle Copilot Chatbot Pane
     const toggleCopilot = document.getElementById('btn-toggle-copilot');
     const copilotPane = document.getElementById('copilot-pane');
     if (toggleCopilot && copilotPane) {
@@ -486,7 +486,6 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
       });
     }
 
-    // Keyboard Shortcuts (Ctrl+K or Cmd+K)
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
@@ -495,7 +494,6 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
     });
   }
 
-  // HTML Escape Utility
   function escapeHtml(str) {
     if (!str) return '';
     return str
@@ -506,14 +504,13 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
       .replace(/'/g, '&#039;');
   }
 
-  // Expose Global IDE Manager API
   window.IDEManager = {
     openFile,
     switchTab: openFile,
     getActiveTab: () => activeTab,
-    getPortfolioData: () => portfolioData
+    getPortfolioData: getActiveLangData,
+    toggleLanguage
   };
 
-  // Run Initialization on DOM Load
   document.addEventListener('DOMContentLoaded', init);
 })();
