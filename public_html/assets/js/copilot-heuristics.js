@@ -58,21 +58,21 @@ Here are the technical articles available in the IDE workspace:<br>
 1. <strong>Fabric Medallion Architecture</strong><br>
 2. <strong>LangGraph N1 Support Agent</strong><br>
 3. <strong>200M+ SAP HANA Migration</strong><br>
-4. <strong>70M Constrained Data Engineering</strong><br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📖 Open Article 1</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📖 Open Article 2</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/03-high-volume-sap-migrations.md')">📖 Open Article 3</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/04-constrained-data-engineering.md')">📖 Open Article 4</button>`,
+4. <strong>70M Constrained Data Engineering</strong><br>
+5. <strong>2 Years Consulting Projects Summary (Medium)</strong><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/05-consulting-projects-summary.md')">📖 Article 5: 2 Years Consulting</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📖 Article 1: Fabric</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📖 Article 2: LangGraph</button>`,
         pt: `📝 <strong>Seção de Artigos Técnicos & Blog:</strong><br>
 Confira os artigos disponíveis no ambiente IDE:<br>
 1. <strong>Arquitetura Medallion em Microsoft Fabric</strong><br>
 2. <strong>Agente de Suporte N1 em LangGraph</strong><br>
 3. <strong>Migração SAP HANA de 200M+ Registros</strong><br>
-4. <strong>Engenharia de Dados Restrita (70M linhas)</strong><br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📖 Abrir Artigo 1</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📖 Abrir Artigo 2</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/03-high-volume-sap-migrations.md')">📖 Abrir Artigo 3</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/04-constrained-data-engineering.md')">📖 Abrir Artigo 4</button>`
+4. <strong>Engenharia de Dados Restrita (70M linhas)</strong><br>
+5. <strong>Resumo dos Meus Projetos em Consultoria (Medium)</strong><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/05-consulting-projects-summary.md')">📖 Artigo 5: Resumo Consultoria</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📖 Artigo 1: Fabric</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📖 Artigo 2: LangGraph</button>`
       }
     },
     {

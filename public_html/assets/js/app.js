@@ -44,7 +44,8 @@
         { path: 'articles/01-fabric-medallion-architecture.md', name: '01-fabric-medallion.md', title: 'Fabric Medallion Architecture', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
         { path: 'articles/02-langgraph-n1-support-agent.md', name: '02-langgraph-agent.md', title: 'LangGraph N1 Support Agent', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
         { path: 'articles/03-high-volume-sap-migrations.md', name: '03-sap-migrations.md', title: '200M+ SAP Migration', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
-        { path: 'articles/04-constrained-data-engineering.md', name: '04-constrained-engineering.md', title: '70M Constrained Engineering', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' }
+        { path: 'articles/04-constrained-data-engineering.md', name: '04-constrained-engineering.md', title: '70M Constrained Engineering', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/05-consulting-projects-summary.md', name: '05-consulting-summary.md', title: '2 Years Consulting Summary (Medium)', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' }
       ]
     }
   ];
