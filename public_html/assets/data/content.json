@@ -1,0 +1,138 @@
+{
+  "profile": {
+    "name": "Renan De Moraes",
+    "title": "Data Engineer | Microsoft Fabric & Azure | Data Architecture | Applied AI",
+    "location": "Porto Feliz, São Paulo, Brazil",
+    "summary": "Senior consultant with years of hands-on experience architecting data solutions across the Microsoft stack, delivering end-to-end projects — from ingestion to governance — for multiple clients in parallel. Background combines solid data engineering with 10+ years of prior operational experience in Logistics and Supply Chain, giving direct fluency in complex business processes when designing technical solutions.",
+    "topSkills": [
+      "Microsoft Fabric",
+      "Azure Data Architecture",
+      "Databricks & Lakehouse",
+      "Applied AI & LangGraph",
+      "Python / SQL Engineering",
+      "High-Volume SAP Migrations"
+    ],
+    "languages": [
+      { "language": "Portuguese", "proficiency": "Native / Bilingual" },
+      { "language": "English", "proficiency": "Full Professional" },
+      { "language": "Spanish", "proficiency": "Professional Working" }
+    ],
+    "certifications": [
+      "Microsoft Certified: Azure Data Engineer Associate (DP-700)",
+      "Microsoft Certified: Azure Data Fundamentals (DP-900)",
+      "Microsoft Certified: Azure Fundamentals (AZ-900)",
+      "Oracle Cloud Infrastructure Associate",
+      "Oracle AI Agents",
+      "Overview of IBM Watson Products (IBM AI Skills Academy)"
+    ]
+  },
+  "experience": [
+    {
+      "company": "Ninecon",
+      "role": "Senior Data Consultant",
+      "period": "October 2024 - Present",
+      "location": "Brazil (Remote)",
+      "highlights": [
+        "ERP Data Warehouse migration: Built an Oracle DW (Star Schema) supporting a manufacturing client's ERP migration from Protheus to Oracle Fusion, now in production. Owned the IBM DataStage ETL layer (50+ tables, Dev/Prod) as sole external consultant.",
+        "Dashboard automation: Replaced a manual Excel process with a Fabric Lakehouse (Bronze/Silver/Gold, 7 tables), configuring Fabric-Oracle EBS connectivity from scratch.",
+        "Financial reporting Lakehouse: Built a multi-country Lakehouse (20-25 tables, BR/AR/CL/PE) with daily pipelines and zero quality errors, supporting 3-5 executive dashboards.",
+        "SAP HANA Cloud migration: Migrated 1,000+ tables (200M+ rows) from an expiring SAP HANA Cloud license to Oracle Exadata using custom Python parallel processing (multiprocessing/threading) and ABAP export routines.",
+        "SAP ERP transition: Migrating legacy SAP HANA finance data into Fabric ahead of an ERP change, preserving full historical data."
+      ]
+    },
+    {
+      "company": "Bluer Tecnologia",
+      "role": "Data Engineer / BI Specialist",
+      "period": "February 2024 - Present",
+      "location": "Sorocaba, SP",
+      "highlights": [
+        "WhatsApp campaign platform: Architected multi-tenant SaaS (Next.js 16 monorepo, PostgreSQL, Docker/Nginx) for WhatsApp marketing via Evolution API with dedicated messaging instances and Node.js async queue workers.",
+        "Payroll file automation: Built Python/SFTP automated pipeline transferring payroll files daily between companies (~30 min/day saved).",
+        "Real-time ingestion pipeline: Created vehicle rental API reader ingesting every minute into SQL Server (dimensional model) via Jenkins on AWS VM.",
+        "Microsoft Fabric architecture: Designed and led Fabric data engineering solution reducing client licensing costs.",
+        "SAP RFC integration: Built ETL using pyrfc to extract procurement data from SAP RFC into Delta Tables with automated Teams/Outlook alerts."
+      ]
+    },
+    {
+      "company": "ScoraS",
+      "role": "AI Agent Developer",
+      "period": "August 2025 - May 2026",
+      "location": "Porto Feliz, SP, Brazil",
+      "highlights": [
+        "Real estate WhatsApp chatbot: Migrated container infrastructure and PostgreSQL database from Azure to AWS; refactored intent extraction from multi-node LangGraph pipeline to structured LLM extraction with deterministic regex fallback.",
+        "Multi-agent support automation: Built multi-agent system (LangGraph orchestration) integrating Databricks OAuth, Active Directory management API, and ticketing system with Prometheus metrics for observability.",
+        "Agribusiness WhatsApp chatbot: Ingested LlamaIndex observability metrics into Aurora PostgreSQL via AWS Glue; implemented long-term conversation memory (LangGraph + Redis ElastiCache) and prompt caching."
+      ]
+    },
+    {
+      "company": "AB InBev",
+      "role": "Senior Analytics Engineer",
+      "period": "March 2024 - September 2024",
+      "location": "Remote",
+      "highlights": [
+        "Competitor pricing dashboard: Owned modeling and delivery for beer segment pricing (~14-15M rows) combining internal pricing with resale data in Databricks.",
+        "Semantic layer: Modeled semantic layers via Trino on top of Databricks feeding Power BI reports with custom Figma-based visual standard and bookmark navigation, orchestrated via Azure Data Factory."
+      ]
+    },
+    {
+      "company": "IBM",
+      "role": "Data & BI Engineer",
+      "period": "February 2022 - February 2024",
+      "location": "Brazil",
+      "highlights": [
+        "Asset monitoring portal (Vale): Built Azure Data Factory pipelines ingesting data from CSV, XLSX, SQL Server, Oracle, and SAP HANA into Star/Snowflake modeled Data Warehouse (SQL Server on Azure).",
+        "Semantic modeling: Developed semantic models in Azure Analysis Services with DAX optimization and Power BI dashboards.",
+        "IoT-sensor monitoring: Led 2-person team on IoT monitoring solution requested by 40+ stakeholders across Vale plants, modeling data from Oracle IoT platform."
+      ]
+    },
+    {
+      "company": "Grupo Petrópolis",
+      "role": "BI Analyst",
+      "period": "December 2020 - February 2022",
+      "location": "Boituva, SP, Brazil",
+      "highlights": [
+        "Logistic Daily Bulletin: Created automated Python HTML/CSS infographic (Pandas, Numpy, Dash) aggregating production, distribution, and inventory data, auto-emailed daily in ~5 minutes.",
+        "Oracle PL/SQL: Maintained PL/SQL packages feeding distribution-planning dashboards across 8 factories and 250+ resellers."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "WhatsApp Marketing Campaign Platform",
+      "tech": ["Next.js 16", "PostgreSQL", "Node.js", "Python ETL", "Docker", "Evolution API"],
+      "description": "Multi-tenant SaaS application with dedicated messaging instances, async queue workers for message dispatch, and rule-based automated campaign triggers.",
+      "link": "https://github.com/mpraes"
+    },
+    {
+      "title": "LangGraph Multi-Agent Support System",
+      "tech": ["Python", "LangGraph", "Databricks OAuth", "Azure Container Apps", "Prometheus"],
+      "description": "Enterprise support automation system integrating Databricks authentication, Active Directory password reset APIs, and ticketing audit trails.",
+      "link": "https://github.com/mpraes"
+    },
+    {
+      "title": "70M Record Data Engineering Challenge",
+      "tech": ["Python", "SQLite / DuckDB", "Constrained Engineering"],
+      "description": "Open-source benchmark demonstrating high-throughput ingestion of 70 million records on lightweight, low-cost infrastructure.",
+      "link": "https://github.com/mpraes"
+    },
+    {
+      "title": "Automated Logistic Infographic Bulletin",
+      "tech": ["Python", "Pandas", "Plotly", "Dash", "HTML/CSS Email"],
+      "description": "Daily automated reporting system consolidating supply chain KPIs across 8 factories and sending rich HTML reports to directors.",
+      "link": "https://github.com/mpraes"
+    }
+  ],
+  "skills": {
+    "dataEngineering": ["Microsoft Fabric", "Azure Data Factory", "Databricks", "Delta Lake", "Trino", "SSIS", "Medallion Architecture", "Synapse"],
+    "databases": ["Oracle", "SQL Server", "SAP HANA", "PostgreSQL", "MySQL", "PL/SQL", "T-SQL"],
+    "aiAndLanguages": ["Python", "TypeScript", "JavaScript", "LangGraph", "FastAPI", "Docker", "Azure Container Apps", "ABAP"],
+    "biAndAnalytics": ["Power BI", "DAX", "Dash / Plotly", "Excel VBA", "Azure Analysis Services"]
+  },
+  "contact": {
+    "email": "renan.de.moraes777@gmail.com",
+    "phone": "+55 15 99136-7797",
+    "linkedin": "https://www.linkedin.com/in/renan-moraes-data-ai-engineer/",
+    "github": "https://github.com/mpraes",
+    "location": "Porto Feliz, SP, Brazil"
+  }
+}
