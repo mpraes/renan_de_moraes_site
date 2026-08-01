@@ -26,8 +26,9 @@
     },
     {
       folder: 'projects',
-      folderName: 'projects (starred) ⭐',
+      folderName: 'projects (featured & starred) ⭐',
       files: [
+        { path: 'projects/canicodewithoutai.md', name: 'canicodewithoutai.md', title: 'Can I Code Without AI? 🤖', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },
         { path: 'projects/quickelt.md', name: 'quickelt.md', title: 'QuickELT ⭐ 31', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
         { path: 'projects/ingestao-no-limite.md', name: 'ingestao-no-limite.md', title: 'Ingestão no Limite ⭐ 24', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
         { path: 'projects/pandas-pipeline-agent.md', name: 'pandas-pipeline-agent.md', title: 'Pandas Pipeline Agent ⭐ 10', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },

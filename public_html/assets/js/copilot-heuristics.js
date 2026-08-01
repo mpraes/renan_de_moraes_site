@@ -76,25 +76,41 @@ Confira os 10 artigos técnicos do Renan publicados no Medium:<br>
       }
     },
     {
+      intent: 'CAN_I_CODE_WITHOUT_AI',
+      keywords: ['can i code without ai', 'canicodewithoutai', 'code without ai', 'without ai', 'quiz', 'benchmark'],
+      response: {
+        en: `🤖 <strong>Can I Code Without AI? (Interactive Web App & Benchmark):</strong><br>
+Renan built <strong>Can I Code Without AI?</strong>, a web application that tests developers on their reliance on AI coding assistants (Copilot, ChatGPT, Cursor).<br><br>
+• 🌐 <strong>Live App</strong>: <a href="https://canicodewithoutai.site/?lang=en" target="_blank" rel="noopener" style="color: var(--accent-cyan);">canicodewithoutai.site</a><br>
+• 🐙 <strong>GitHub Repo</strong>: <a href="https://github.com/mpraes/canicodewithoutai_site" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes/canicodewithoutai_site</a><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/canicodewithoutai.md')">📄 Open Project File</button>`,
+        pt: `🤖 <strong>Can I Code Without AI? (Aplicação Web & Quiz Interativo):</strong><br>
+Renan desenvolveu a aplicação web <strong>Can I Code Without AI?</strong> para desafiar programadores sobre o nível de dependência de assistentes de IA (Copilot, ChatGPT, Cursor).<br><br>
+• 🌐 <strong>Aplicação no Ar</strong>: <a href="https://canicodewithoutai.site/?lang=pt" target="_blank" rel="noopener" style="color: var(--accent-cyan);">canicodewithoutai.site</a><br>
+• 🐙 <strong>Repositório GitHub</strong>: <a href="https://github.com/mpraes/canicodewithoutai_site" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes/canicodewithoutai_site</a><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/canicodewithoutai.md')">📄 Abrir Arquivo do Projeto</button>`
+      }
+    },
+    {
       intent: 'PROJECTS_STARRED',
       keywords: ['project', 'projects', 'projeto', 'projetos', 'github', 'starred', 'stars', 'quickelt', 'ingestao', 'limite', 'repo'],
       response: {
-        en: `⭐ <strong>Top GitHub Starred Projects:</strong><br>
-Explore Renan's top starred GitHub repositories in the <strong>projects/</strong> folder:<br>
+        en: `⭐ <strong>Top Featured & Starred Projects:</strong><br>
+Explore Renan's top projects in the <strong>projects/</strong> folder:<br>
+• <strong>Can I Code Without AI?</strong> — Developer AI Reliance Quiz App<br>
 • <strong>QuickELT</strong> (⭐ 31 Stars) — Data Engineering ELT Template<br>
 • <strong>Ingestão no Limite</strong> (⭐ 24 Stars) — 70M Lightweight Hardware Challenge<br>
-• <strong>Pandas Pipeline Agent</strong> (⭐ 10 Stars) — AI Data Cleaning Generator<br>
-• <strong>Awesome Faith Tech</strong> (⭐ 8 Stars) — Faith & Tech Resources<br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('projects/quickelt.md')">⭐ QuickELT (31★)</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('projects/ingestao-no-limite.md')">⭐ Ingestão no Limite (24★)</button>`,
-        pt: `⭐ <strong>Projetos Mais Populares no GitHub (Starred):</strong><br>
-Explore os repositórios mais estrelados do Renan na pasta <strong>projects/</strong>:<br>
+• <strong>Pandas Pipeline Agent</strong> (⭐ 10 Stars) — AI Data Cleaning Generator<br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/canicodewithoutai.md')">🤖 Can I Code Without AI?</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/quickelt.md')">⭐ QuickELT (31★)</button>`,
+        pt: `⭐ <strong>Projetos em Destaque & Populares no GitHub:</strong><br>
+Explore os principais projetos do Renan na pasta <strong>projects/</strong>:<br>
+• <strong>Can I Code Without AI?</strong> — Quiz sobre Dependência de IA em Código<br>
 • <strong>QuickELT</strong> (⭐ 31 Stars) — Template de Engenharia de Dados<br>
 • <strong>Ingestão no Limite</strong> (⭐ 24 Stars) — Desafio 70M em Hardware Leve<br>
-• <strong>Pandas Pipeline Agent</strong> (⭐ 10 Stars) — Gerador de Pipelines com IA<br>
-• <strong>Awesome Faith Tech</strong> (⭐ 8 Stars) — Recursos de Fé & Tecnologia<br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('projects/quickelt.md')">⭐ QuickELT (31★)</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('projects/ingestao-no-limite.md')">⭐ Ingestão no Limite (24★)</button>`
+• <strong>Pandas Pipeline Agent</strong> (⭐ 10 Stars) — Gerador de Pipelines com IA<br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/canicodewithoutai.md')">🤖 Can I Code Without AI?</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/quickelt.md')">⭐ QuickELT (31★)</button>`
       }
     },
     {
