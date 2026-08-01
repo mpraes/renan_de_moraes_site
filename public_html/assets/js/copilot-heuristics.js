@@ -76,6 +76,22 @@ Confira os 10 artigos técnicos do Renan publicados no Medium:<br>
       }
     },
     {
+      intent: 'VEROMETRIC',
+      keywords: ['verometric', 'verometric.space', 'verometric space', 'metrics product'],
+      response: {
+        en: `📊 <strong>Verometric (Applied Data Intelligence Platform):</strong><br>
+Renan is the author of <strong>Verometric</strong>, a data intelligence platform built to transform enterprise metrics into automated business narratives and executive dashboards.<br><br>
+• 🌐 <strong>Live Platform</strong>: <a href="https://verometric.space" target="_blank" rel="noopener" style="color: var(--accent-cyan);">verometric.space</a><br>
+• 🔒 <strong>GitHub Repo (Private)</strong>: <a href="https://github.com/mpraes/verometric" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes/verometric</a><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/verometric.md')">📄 Open Verometric File</button>`,
+        pt: `📊 <strong>Verometric (Plataforma de Inteligência de Dados):</strong><br>
+Renan é o criador do <strong>Verometric</strong>, produto voltado para inteligência de dados aplicada e automação de relatórios executivos.<br><br>
+• 🌐 <strong>Plataforma no Ar</strong>: <a href="https://verometric.space" target="_blank" rel="noopener" style="color: var(--accent-cyan);">verometric.space</a><br>
+• 🔒 <strong>Repositório GitHub (Privado)</strong>: <a href="https://github.com/mpraes/verometric" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes/verometric</a><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/verometric.md')">📄 Abrir Arquivo do Verometric</button>`
+      }
+    },
+    {
       intent: 'CAN_I_CODE_WITHOUT_AI',
       keywords: ['can i code without ai', 'canicodewithoutai', 'code without ai', 'without ai', 'quiz', 'benchmark'],
       response: {

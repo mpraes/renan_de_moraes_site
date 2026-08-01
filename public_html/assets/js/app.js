@@ -28,6 +28,7 @@
       folder: 'projects',
       folderName: 'projects (featured & starred) ⭐',
       files: [
+        { path: 'projects/verometric.md', name: 'verometric.md', title: 'Verometric 🔒', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },
         { path: 'projects/canicodewithoutai.md', name: 'canicodewithoutai.md', title: 'Can I Code Without AI? 🤖', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },
         { path: 'projects/quickelt.md', name: 'quickelt.md', title: 'QuickELT ⭐ 31', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
         { path: 'projects/ingestao-no-limite.md', name: 'ingestao-no-limite.md', title: 'Ingestão no Limite ⭐ 24', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
