@@ -148,19 +148,39 @@ Explore os principais projetos do Renan na pasta <strong>projects/</strong>:<br>
       }
     },
     {
+      intent: 'LUMENEX',
+      keywords: ['lumenex', 'lumen', 'lumenex.com.br', 'biblical exegesis', 'exegese'],
+      response: {
+        en: `📖 <strong>Lumenex / Lumen (Guided Exegesis Platform):</strong><br>
+Renan built <strong>Lumenex</strong>, an interactive web platform for biblical exegesis and textual research based on Eric Lund rules and Gordon Fee workflows.<br><br>
+• 🌐 <strong>Live Platform</strong>: <a href="https://www.lumenex.com.br/" target="_blank" rel="noopener" style="color: var(--accent-cyan);">lumenex.com.br</a><br>
+• 🔒 <strong>GitHub Repo (Private)</strong>: <a href="https://github.com/mpraes/lumen" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes/lumen</a><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/lumenex.md')">📄 Open Lumenex File</button>`,
+        pt: `📖 <strong>Lumenex / Lumen (Plataforma de Exegese Bíblica):</strong><br>
+Renan desenvolveu o <strong>Lumenex</strong>, produto web para exegese bíblica guiada e pesquisa textual baseada nas regras de Lund e fluxo de Gordon Fee.<br><br>
+• 🌐 <strong>Plataforma no Ar</strong>: <a href="https://www.lumenex.com.br/" target="_blank" rel="noopener" style="color: var(--accent-cyan);">lumenex.com.br</a><br>
+• 🔒 <strong>Repositório GitHub (Privado)</strong>: <a href="https://github.com/mpraes/lumen" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes/lumen</a><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/lumenex.md')">📄 Abrir Arquivo do Lumenex</button>`
+      }
+    },
+    {
       intent: 'CONTACT_INFO',
-      keywords: ['contact', 'contato', 'email', 'phone', 'telefone', 'linkedin', 'github', 'hire', 'contratar', 'job', 'vaga', 'consulting', 'consultoria'],
+      keywords: ['contact', 'contato', 'email', 'phone', 'telefone', 'linkedin', 'github', 'twitter', 'x', 'hire', 'contratar', 'job', 'vaga', 'consulting', 'consultoria'],
       response: {
         en: `📫 <strong>Contact Renan De Moraes:</strong><br>
 • 📧 Email: <a href="mailto:renan.de.moraes777@gmail.com" style="color: var(--accent-cyan);">renan.de.moraes777@gmail.com</a><br>
 • 📱 Phone: +55 15 99136-7797<br>
 • 💼 LinkedIn: <a href="https://www.linkedin.com/in/renan-moraes-data-ai-engineer/" target="_blank" rel="noopener" style="color: var(--accent-cyan);">linkedin.com/in/renan-moraes-data-ai-engineer</a><br>
+• 🐙 GitHub: <a href="https://github.com/mpraes" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes</a><br>
+• 🐦 𝕏 (Twitter): <a href="https://x.com/DeMoraes777" target="_blank" rel="noopener" style="color: var(--accent-cyan);">x.com/DeMoraes777</a><br>
 • 📍 Location: Porto Feliz, SP, Brazil<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('src/contact.md')">📂 Open contact.md File</button>`,
         pt: `📫 <strong>Contato de Renan De Moraes:</strong><br>
 • 📧 E-mail: <a href="mailto:renan.de.moraes777@gmail.com" style="color: var(--accent-cyan);">renan.de.moraes777@gmail.com</a><br>
 • 📱 Telefone / WhatsApp: +55 15 99136-7797<br>
 • 💼 LinkedIn: <a href="https://www.linkedin.com/in/renan-moraes-data-ai-engineer/" target="_blank" rel="noopener" style="color: var(--accent-cyan);">linkedin.com/in/renan-moraes-data-ai-engineer</a><br>
+• 🐙 GitHub: <a href="https://github.com/mpraes" target="_blank" rel="noopener" style="color: var(--accent-cyan);">github.com/mpraes</a><br>
+• 🐦 𝕏 (Twitter): <a href="https://x.com/DeMoraes777" target="_blank" rel="noopener" style="color: var(--accent-cyan);">x.com/DeMoraes777</a><br>
 • 📍 Localização: Porto Feliz, SP, Brasil<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('src/contact.md')">📂 Abrir Arquivo contact.md</button>`
       }

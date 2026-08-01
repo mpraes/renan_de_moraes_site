@@ -28,6 +28,7 @@
       folder: 'projects',
       folderName: 'projects (featured & starred) ⭐',
       files: [
+        { path: 'projects/lumenex.md', name: 'lumenex.md', title: 'Lumenex / Lumen 🔒', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },
         { path: 'projects/verometric.md', name: 'verometric.md', title: 'Verometric 🔒', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },
         { path: 'projects/canicodewithoutai.md', name: 'canicodewithoutai.md', title: 'Can I Code Without AI? 🤖', lang: 'Markdown', iconClass: 'icon-md', icon: '🌐' },
         { path: 'projects/quickelt.md', name: 'quickelt.md', title: 'QuickELT ⭐ 31', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
@@ -386,6 +387,7 @@
             <li>📱 <strong>Phone</strong>: ${escapeHtml(c.phone)}</li>
             <li>💼 <strong>LinkedIn</strong>: <a href="${c.linkedin}" target="_blank" rel="noopener" style="color: var(--accent-cyan);">${escapeHtml(c.linkedin)}</a></li>
             <li>🐙 <strong>GitHub</strong>: <a href="${c.github}" target="_blank" rel="noopener" style="color: var(--accent-cyan);">${escapeHtml(c.github)}</a></li>
+            ${c.twitter ? `<li>🐦 <strong>𝕏 (Twitter)</strong>: <a href="${c.twitter}" target="_blank" rel="noopener" style="color: var(--accent-cyan);">${escapeHtml(c.twitter)}</a></li>` : ''}
             <li>📍 <strong>Location</strong>: ${escapeHtml(c.location)}</li>
           </ul>
         </div>
