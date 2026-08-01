@@ -59,6 +59,9 @@ SSH_OPTS=(
   -o StrictHostKeyChecking=accept-new
   -o UserKnownHostsFile="${HOME}/.ssh/known_hosts"
 )
+if [[ -f "${HOME}/.ssh/hostinger" ]]; then
+  SSH_OPTS+=(-i "${HOME}/.ssh/hostinger")
+fi
 
 if ! sshpass -p "${SSH_PASSWORD}" ssh "${SSH_OPTS[@]}" "${REMOTE_USER}@${REMOTE_HOST}" "test -w \"${REMOTE_DIR}\""; then
   echo "Erro: sem permissão de escrita no diretório remoto: ${REMOTE_DIR}"
