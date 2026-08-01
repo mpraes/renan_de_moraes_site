@@ -53,26 +53,26 @@ Renan desenvolveu um framework customizado em Python (multiprocessing/threading)
       intent: 'BLOG_ARTICLES',
       keywords: ['blog', 'article', 'artigo', 'post', 'text', 'texto', 'writing', 'read', 'posts', 'articles', 'artigos'],
       response: {
-        en: `📝 <strong>Technical Articles & Blog Section:</strong><br>
-Here are the technical articles available in the IDE workspace:<br>
-1. <strong>Fabric Medallion Architecture</strong><br>
-2. <strong>LangGraph N1 Support Agent</strong><br>
-3. <strong>200M+ SAP HANA Migration</strong><br>
-4. <strong>70M Constrained Data Engineering</strong><br>
-5. <strong>2 Years Consulting Projects Summary (Medium)</strong><br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/05-consulting-projects-summary.md')">📖 Article 5: 2 Years Consulting</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📖 Article 1: Fabric</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📖 Article 2: LangGraph</button>`,
-        pt: `📝 <strong>Seção de Artigos Técnicos & Blog:</strong><br>
-Confira os artigos disponíveis no ambiente IDE:<br>
-1. <strong>Arquitetura Medallion em Microsoft Fabric</strong><br>
-2. <strong>Agente de Suporte N1 em LangGraph</strong><br>
-3. <strong>Migração SAP HANA de 200M+ Registros</strong><br>
-4. <strong>Engenharia de Dados Restrita (70M linhas)</strong><br>
-5. <strong>Resumo dos Meus Projetos em Consultoria (Medium)</strong><br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/05-consulting-projects-summary.md')">📖 Artigo 5: Resumo Consultoria</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📖 Artigo 1: Fabric</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📖 Artigo 2: LangGraph</button>`
+        en: `📝 <strong>Technical Articles & Medium Blog Posts:</strong><br>
+Here are Renan's 10 technical articles published on Medium:<br>
+1. <strong>Consulting Projects Retrospective (Part 1 & 2)</strong><br>
+2. <strong>PySpark vs Pandas vs DuckDB Framework Comparison</strong><br>
+3. <strong>Normalization & Data Modeling Best Practices</strong><br>
+4. <strong>Data Warehouse Architectures: Inmon vs Kimball</strong><br>
+5. <strong>SQL Relational Foundations & BNDES Data Lake Case</strong><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-projetos-consultoria-p1.md')">📖 Consulting (Part 1)</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/03-pyspark-vs-pandas-vs-duckdb.md')">📖 PySpark vs Pandas vs DuckDB</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/06-inmon-vs-kimball-dw.md')">📖 Inmon vs Kimball DW</button>`,
+        pt: `📝 <strong>Artigos Técnicos & Posts do Medium:</strong><br>
+Confira os 10 artigos técnicos do Renan publicados no Medium:<br>
+1. <strong>Retrospectiva de Projetos em Consultoria (Parte 1 e 2)</strong><br>
+2. <strong>PySpark vs Pandas vs DuckDB: Qual Escolher?</strong><br>
+3. <strong>Normalização e Melhores Práticas de Modelagem</strong><br>
+4. <strong>Arquitetura Data Warehouse: Inmon vs Kimball</strong><br>
+5. <strong>Fundamentos de SQL & Caso Data Lake BNDES</strong><br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-projetos-consultoria-p1.md')">📖 Consultoria (Parte 1)</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/03-pyspark-vs-pandas-vs-duckdb.md')">📖 PySpark vs Pandas vs DuckDB</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('articles/06-inmon-vs-kimball-dw.md')">📖 Inmon vs Kimball DW</button>`
       }
     },
     {

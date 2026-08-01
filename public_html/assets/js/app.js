@@ -41,11 +41,16 @@
       folder: 'articles',
       folderName: 'articles (blog) 📝',
       files: [
-        { path: 'articles/01-fabric-medallion-architecture.md', name: '01-fabric-medallion.md', title: 'Fabric Medallion Architecture', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
-        { path: 'articles/02-langgraph-n1-support-agent.md', name: '02-langgraph-agent.md', title: 'LangGraph N1 Support Agent', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
-        { path: 'articles/03-high-volume-sap-migrations.md', name: '03-sap-migrations.md', title: '200M+ SAP Migration', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
-        { path: 'articles/04-constrained-data-engineering.md', name: '04-constrained-engineering.md', title: '70M Constrained Engineering', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
-        { path: 'articles/05-consulting-projects-summary.md', name: '05-consulting-summary.md', title: '2 Years Consulting Summary (Medium)', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' }
+        { path: 'articles/01-projetos-consultoria-p1.md', name: '01-projetos-consultoria-p1.md', title: 'Consultoria Projetos (Parte 1)', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/02-projetos-consultoria-p2.md', name: '02-projetos-consultoria-p2.md', title: 'Consultoria Projetos (Parte 2)', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/03-pyspark-vs-pandas-vs-duckdb.md', name: '03-pyspark-vs-pandas-vs-duckdb.md', title: 'PySpark vs Pandas vs DuckDB', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/04-normalization-in-action.md', name: '04-normalization-in-action.md', title: 'Normalization in Data Modeling', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/05-mastering-data-modeling-p2.md', name: '05-mastering-data-modeling-p2.md', title: 'Mastering Data Modeling P2', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/06-inmon-vs-kimball-dw.md', name: '06-inmon-vs-kimball-dw.md', title: 'Inmon vs Kimball Data Warehouse', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/07-relational-foundations-sql.md', name: '07-relational-foundations-sql.md', title: 'Relational Foundations SQL', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/08-sql-fundamentals.md', name: '08-sql-fundamentals.md', title: 'SQL Fundamentals for Analytics', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/09-caso-bndes-csv-datalake.md', name: '09-caso-bndes-csv-datalake.md', title: 'Caso BNDES CSV Data Lake', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' },
+        { path: 'articles/10-infraestrutura-moderna-dados.md', name: '10-infraestrutura-moderna-dados.md', title: 'Infraestrutura Moderna de Dados', lang: 'Markdown', iconClass: 'icon-md', icon: '📝' }
       ]
     }
   ];
@@ -389,14 +394,23 @@
   }
 
   async function renderMarkdownArticle(path, lineNumElem, contentElem) {
-    let mdText = articleCache[path];
+    let fetchPath = path;
+    if (path.startsWith('articles/')) {
+      const parts = path.split('/');
+      const filename = parts[parts.length - 1];
+      const langDir = currentLang === 'pt' ? 'pt' : 'en';
+      fetchPath = `articles/${langDir}/${filename}`;
+    }
+
+    const cacheKey = `${currentLang}:${fetchPath}`;
+    let mdText = articleCache[cacheKey];
     if (!mdText) {
       try {
-        const res = await fetch(`./${path}`);
+        const res = await fetch(`./${fetchPath}`);
         mdText = await res.text();
-        articleCache[path] = mdText;
+        articleCache[cacheKey] = mdText;
       } catch (e) {
-        mdText = `# File Not Found\nCould not load file at ${path}`;
+        mdText = `# File Not Found\nCould not load file at ${fetchPath}`;
       }
     }
 
