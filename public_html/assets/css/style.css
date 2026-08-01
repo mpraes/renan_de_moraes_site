@@ -207,8 +207,34 @@ html, body {
   display: flex;
   flex-direction: column;
   user-select: none;
-  transition: transform 0.2s var(--ease-standard), width 0.2s var(--ease-standard);
+  transition: width 0.2s var(--ease-standard), opacity 0.2s var(--ease-standard);
   z-index: 15;
+}
+
+.sidebar-pane.hidden {
+  width: 0 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  border-right: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pane-close-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 3px;
+  line-height: 1;
+  transition: background-color var(--duration-fast), color var(--duration-fast);
+}
+
+.pane-close-btn:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-high);
 }
 
 .sidebar-header {
@@ -514,8 +540,17 @@ html, body {
   border-left: 1px solid var(--ide-border-subtle);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s var(--ease-standard);
+  transition: width 0.2s var(--ease-standard), opacity 0.2s var(--ease-standard);
   z-index: 15;
+}
+
+.copilot-pane.hidden {
+  width: 0 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  border-left: none !important;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .copilot-header {

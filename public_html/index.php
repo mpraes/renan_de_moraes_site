@@ -94,6 +94,7 @@ $pageDescription = 'Portfolio IDE de Renan De Moraes - Data & AI Engineer, Fabri
         <section class="sidebar-pane" id="sidebar-pane" aria-label="File Explorer">
           <div class="sidebar-header">
             <span>Explorer: Renan-Portfolio</span>
+            <button class="pane-close-btn" id="btn-close-sidebar" title="Hide Explorer (Ctrl+B)">✕</button>
           </div>
           <div class="sidebar-search-box">
             <input type="text" id="file-search-input" class="sidebar-search-input" placeholder="Filter files..." />
@@ -129,8 +130,11 @@ $pageDescription = 'Portfolio IDE de Renan De Moraes - Data & AI Engineer, Fabri
         <!-- Right Copilot Chatbot Pane -->
         <aside class="copilot-pane" id="copilot-pane" aria-label="AI Assistant">
           <div class="copilot-header">
-            <span>🤖 Renan AI Copilot</span>
-            <span style="font-size:10px; opacity:0.7;">[Heuristic]</span>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span>🤖 Renan AI Copilot</span>
+              <span style="font-size:10px; opacity:0.7;">[Heuristic]</span>
+            </div>
+            <button class="pane-close-btn" id="btn-close-copilot" title="Hide Copilot Pane">✕</button>
           </div>
           <div class="copilot-messages" id="copilot-messages">
             <div class="chat-bubble chat-bubble-bot">

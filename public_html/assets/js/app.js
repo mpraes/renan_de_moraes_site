@@ -468,28 +468,65 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
       });
     }
 
+    // Toggle / Hide Sidebar Pane
     const toggleExplorer = document.getElementById('btn-toggle-explorer');
+    const closeSidebar = document.getElementById('btn-close-sidebar');
     const sidebar = document.getElementById('sidebar-pane');
-    if (toggleExplorer && sidebar) {
-      toggleExplorer.addEventListener('click', () => {
-        sidebar.classList.toggle('visible');
-        toggleExplorer.classList.toggle('active');
-      });
+
+    function toggleSidebarState(forceHide) {
+      if (!sidebar) return;
+      if (forceHide === true) {
+        sidebar.classList.add('hidden');
+        if (toggleExplorer) toggleExplorer.classList.remove('active');
+      } else if (forceHide === false) {
+        sidebar.classList.remove('hidden');
+        if (toggleExplorer) toggleExplorer.classList.add('active');
+      } else {
+        const isHidden = sidebar.classList.toggle('hidden');
+        if (toggleExplorer) {
+          if (isHidden) toggleExplorer.classList.remove('active');
+          else toggleExplorer.classList.add('active');
+        }
+      }
     }
 
+    if (toggleExplorer) toggleExplorer.addEventListener('click', () => toggleSidebarState());
+    if (closeSidebar) closeSidebar.addEventListener('click', () => toggleSidebarState(true));
+
+    // Toggle / Hide Copilot Pane
     const toggleCopilot = document.getElementById('btn-toggle-copilot');
+    const closeCopilot = document.getElementById('btn-close-copilot');
     const copilotPane = document.getElementById('copilot-pane');
-    if (toggleCopilot && copilotPane) {
-      toggleCopilot.addEventListener('click', () => {
-        copilotPane.classList.toggle('visible');
-        toggleCopilot.classList.toggle('active');
-      });
+
+    function toggleCopilotState(forceHide) {
+      if (!copilotPane) return;
+      if (forceHide === true) {
+        copilotPane.classList.add('hidden');
+        if (toggleCopilot) toggleCopilot.classList.remove('active');
+      } else if (forceHide === false) {
+        copilotPane.classList.remove('hidden');
+        if (toggleCopilot) toggleCopilot.classList.add('active');
+      } else {
+        const isHidden = copilotPane.classList.toggle('hidden');
+        if (toggleCopilot) {
+          if (isHidden) toggleCopilot.classList.remove('active');
+          else toggleCopilot.classList.add('active');
+        }
+      }
     }
 
+    if (toggleCopilot) toggleCopilot.addEventListener('click', () => toggleCopilotState());
+    if (closeCopilot) closeCopilot.addEventListener('click', () => toggleCopilotState(true));
+
+    // Keyboard Shortcuts (Ctrl+K or Cmd+K for Search, Ctrl+B or Cmd+B for Sidebar)
     document.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         if (searchInput) searchInput.focus();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+        e.preventDefault();
+        toggleSidebarState();
       }
     });
   }
