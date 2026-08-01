@@ -1,5 +1,5 @@
 /**
- * VS Code IDE Layout & Workspace Manager - Renan De Moraes Portfolio (All src files in Markdown)
+ * VS Code IDE Layout & Workspace Manager - Renan De Moraes Portfolio (Clean Rendered View)
  */
 
 (function () {
@@ -12,7 +12,7 @@
   let activeTab = 'src/profile.md';
   const articleCache = {};
 
-  // File Registry Definition - ALL src files are Markdown (.md)
+  // File Registry Definition
   const fileRegistry = [
     {
       folder: 'src',
@@ -228,59 +228,35 @@
   }
 
   function renderProfileMD(p, lineNumElem, contentElem) {
-    const mdCode = `# ${p.name}
-> ${p.title}
-> 📍 ${p.location}
-
-## ${currentLang === 'pt' ? 'Resumo Executivo' : 'Executive Summary'}
-${p.summary}
-
-## ${currentLang === 'pt' ? 'Foco de Engenharia' : 'Top Engineering Focus'}
-${p.topSkills.map(s => `- **${s}**`).join('\n')}
-
-## ${currentLang === 'pt' ? 'Certificações' : 'Certifications'}
-${p.certifications.map(c => `- 🏆 ${c}`).join('\n')}`;
-
-    updateLineNumbers(lineNumElem, mdCode);
-
     const skillsBadges = p.topSkills.map(s => `<span class="tech-badge">${escapeHtml(s)}</span>`).join(' ');
-    const certsList = p.certifications.map(c => `<li>🏆 ${escapeHtml(c)}</li>`).join('');
+    const certsList = p.certifications.map(c => `<li style="margin-bottom: 6px;">🏆 ${escapeHtml(c)}</li>`).join('');
 
     contentElem.innerHTML = `
-      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 13px;">${escapeHtml(mdCode)}</pre>
-      
-      <div style="margin-top: 24px; border-top: 1px dashed var(--ide-border); padding-top: 16px; font-family: var(--font-ui);">
-        <h2 style="color: var(--text-high); margin-top: 0;">👨‍💻 ${escapeHtml(p.name)}</h2>
-        <p style="color: var(--accent-cyan); font-weight: 600; margin-top: -6px;">${escapeHtml(p.title)} | 📍 ${escapeHtml(p.location)}</p>
-        <p style="line-height: 1.7;">${escapeHtml(p.summary)}</p>
+      <div style="font-family: var(--font-ui); max-width: 850px;">
+        <h1 style="color: var(--text-high); margin-top: 0; font-size: 26px; border-bottom: 1px solid var(--ide-border); padding-bottom: 10px;">👨‍💻 ${escapeHtml(p.name)}</h1>
+        <p style="color: var(--accent-cyan); font-weight: 600; font-size: 15px; margin-top: -4px;">${escapeHtml(p.title)} | 📍 ${escapeHtml(p.location)}</p>
+        <p style="line-height: 1.7; font-size: 14px; color: var(--text-main);">${escapeHtml(p.summary)}</p>
         
-        <div style="margin: 16px 0;">
-          <h4 style="color: var(--text-high); margin-bottom: 8px;">${currentLang === 'pt' ? 'Foco de Engenharia:' : 'Top Engineering Focus:'}</h4>
-          <div class="tech-badge-container">${skillsBadges}</div>
+        <div style="margin: 24px 0;">
+          <h3 style="color: var(--text-high); margin-bottom: 12px; font-size: 16px;">${currentLang === 'pt' ? '🎯 Foco Principais em Engenharia' : '🎯 Top Engineering Focus'}</h3>
+          <div class="tech-badge-container" style="gap: 8px;">${skillsBadges}</div>
         </div>
 
-        <div style="margin-top: 16px;">
-          <h4 style="color: var(--text-high); margin-bottom: 8px;">${currentLang === 'pt' ? 'Certificações:' : 'Certifications:'}</h4>
-          <ul style="list-style: none; padding: 0; margin: 0; line-height: 1.8;">${certsList}</ul>
+        <div style="margin-top: 24px;">
+          <h3 style="color: var(--text-high); margin-bottom: 12px; font-size: 16px;">🏆 ${currentLang === 'pt' ? 'Certificações' : 'Certifications'}</h3>
+          <ul style="list-style: none; padding: 0; margin: 0; line-height: 1.8; font-size: 14px;">${certsList}</ul>
         </div>
       </div>
     `;
+
+    updateContentLineNumbers(lineNumElem, contentElem);
   }
 
   function renderExperienceMD(exp, lineNumElem, contentElem) {
-    const mdCode = `# ${currentLang === 'pt' ? 'Histórico de Experiência Profissional' : 'Professional Experience History'}
-
-${exp.map(item => `## ${item.role} @ ${item.company}
-*${item.period} | ${item.location}*
-
-${item.highlights.map(h => `- ${h}`).join('\n')}`).join('\n\n')}`;
-
-    updateLineNumbers(lineNumElem, mdCode);
-
     const expCards = exp.map(item => `
       <div class="code-card">
         <h3 class="code-card-title">${escapeHtml(item.role)}</h3>
-        <div class="code-card-subtitle">${escapeHtml(item.company)} | ${escapeHtml(item.period)}</div>
+        <div class="code-card-subtitle">${escapeHtml(item.company)} | ${escapeHtml(item.period)} | ${escapeHtml(item.location)}</div>
         <ul style="padding-left: 18px; margin: 8px 0; font-size: 13px; line-height: 1.6;">
           ${item.highlights.map(h => `<li style="margin-bottom: 6px;">${escapeHtml(h)}</li>`).join('')}
         </ul>
@@ -288,24 +264,16 @@ ${item.highlights.map(h => `- ${h}`).join('\n')}`).join('\n\n')}`;
     `).join('');
 
     contentElem.innerHTML = `
-      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 12px;">${escapeHtml(mdCode)}</pre>
-      <div style="margin-top: 20px; border-top: 1px dashed var(--ide-border); padding-top: 16px;">
-        <h3 style="color: var(--text-high); margin-top: 0;">${currentLang === 'pt' ? 'Trajetória Profissional' : 'Career Timeline'} (${exp.length} ${currentLang === 'pt' ? 'posições' : 'positions'})</h3>
-        <div class="code-card-grid">${expCards}</div>
+      <div style="font-family: var(--font-ui);">
+        <h2 style="color: var(--text-high); margin-top: 0; border-bottom: 1px solid var(--ide-border); padding-bottom: 8px;">💼 ${currentLang === 'pt' ? 'Trajetória Profissional' : 'Professional Experience Timeline'} (${exp.length} ${currentLang === 'pt' ? 'posições' : 'positions'})</h2>
+        <div class="code-card-grid" style="margin-top: 16px;">${expCards}</div>
       </div>
     `;
+
+    updateContentLineNumbers(lineNumElem, contentElem);
   }
 
   function renderProjectsMD(proj, lineNumElem, contentElem) {
-    const mdCode = `# ${currentLang === 'pt' ? 'Projetos em Destaque' : 'Featured Projects'}
-
-${proj.map(p => `### ${p.title}
-${p.description}
-- **Tech**: ${p.tech.join(', ')}
-- **Link**: [${p.link}](${p.link})`).join('\n\n')}`;
-
-    updateLineNumbers(lineNumElem, mdCode);
-
     const projCards = proj.map(p => `
       <div class="code-card">
         <h3 class="code-card-title">🚀 ${escapeHtml(p.title)}</h3>
@@ -320,36 +288,20 @@ ${p.description}
     `).join('');
 
     contentElem.innerHTML = `
-      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 12px;">${escapeHtml(mdCode)}</pre>
-      <div style="margin-top: 20px; border-top: 1px dashed var(--ide-border); padding-top: 16px;">
-        <h3 style="color: var(--text-high); margin-top: 0;">${currentLang === 'pt' ? 'Projetos em Destaque & Open Source' : 'Featured Engineering & Open Source Projects'}</h3>
-        <div class="code-card-grid">${projCards}</div>
+      <div style="font-family: var(--font-ui);">
+        <h2 style="color: var(--text-high); margin-top: 0; border-bottom: 1px solid var(--ide-border); padding-bottom: 8px;">🚀 ${currentLang === 'pt' ? 'Projetos em Destaque & Open Source' : 'Featured Engineering & Open Source Projects'}</h2>
+        <div class="code-card-grid" style="margin-top: 16px;">${projCards}</div>
       </div>
     `;
+
+    updateContentLineNumbers(lineNumElem, contentElem);
   }
 
   function renderSkillsMD(s, lineNumElem, contentElem) {
-    const mdCode = `# ${currentLang === 'pt' ? 'Habilidades Técnicas & Stack' : 'Technical Capabilities & Stack'}
-
-### Data Engineering
-${s.dataEngineering.map(x => `- ${x}`).join('\n')}
-
-### Enterprise Databases
-${s.databases.map(x => `- ${x}`).join('\n')}
-
-### Applied AI & Languages
-${s.aiAndLanguages.map(x => `- ${x}`).join('\n')}
-
-### BI & Analytics
-${s.biAndAnalytics.map(x => `- ${x}`).join('\n')}`;
-
-    updateLineNumbers(lineNumElem, mdCode);
-
     contentElem.innerHTML = `
-      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 13px;">${escapeHtml(mdCode)}</pre>
-      <div style="margin-top: 24px; border-top: 1px dashed var(--ide-border); padding-top: 16px; font-family: var(--font-ui);">
-        <h3 style="color: var(--text-high); margin-top: 0;">${currentLang === 'pt' ? 'Matriz de Habilidades Técnicas' : 'Technical Capabilities Matrix'}</h3>
-        <div class="code-card-grid">
+      <div style="font-family: var(--font-ui);">
+        <h2 style="color: var(--text-high); margin-top: 0; border-bottom: 1px solid var(--ide-border); padding-bottom: 8px;">🛠️ ${currentLang === 'pt' ? 'Matriz de Habilidades Técnicas' : 'Technical Capabilities Matrix'}</h2>
+        <div class="code-card-grid" style="margin-top: 16px;">
           <div class="code-card">
             <h4 style="color: var(--accent-cyan); margin-top: 0;">🏗️ ${currentLang === 'pt' ? 'Arquitetura de Dados' : 'Data Architecture & Engineering'}</h4>
             <div class="tech-badge-container">${s.dataEngineering.map(x => `<span class="tech-badge">${escapeHtml(x)}</span>`).join('')}</div>
@@ -369,26 +321,17 @@ ${s.biAndAnalytics.map(x => `- ${x}`).join('\n')}`;
         </div>
       </div>
     `;
+
+    updateContentLineNumbers(lineNumElem, contentElem);
   }
 
   function renderContactMD(c, lineNumElem, contentElem) {
-    const mdCode = `# Contact Information & Links (${currentLang.toUpperCase()})
-
-- **Email**: [${c.email}](mailto:${c.email})
-- **Phone / Mobile**: ${c.phone}
-- **LinkedIn**: [${c.linkedin}](${c.linkedin})
-- **GitHub**: [${c.github}](${c.github})
-- **Location**: ${c.location}
-- **Status**: 🟢 ${currentLang === 'pt' ? 'Disponível para Projetos & Consultoria' : 'Open for Senior Consulting & Lead Engineering Roles'}`;
-
-    updateLineNumbers(lineNumElem, mdCode);
-
     contentElem.innerHTML = `
-      <div class="markdown-article">
-        <h1>📫 ${currentLang === 'pt' ? 'Contato e Links Profissionais' : 'Contact & Professional Links'}</h1>
+      <div class="markdown-article" style="font-family: var(--font-ui);">
+        <h1 style="color: var(--text-high); margin-top: 0;">📫 ${currentLang === 'pt' ? 'Contato e Links Profissionais' : 'Contact & Professional Links'}</h1>
         <p style="font-size: 15px; color: var(--text-main); margin-bottom: 24px;">${currentLang === 'pt' ? 'Entre em contato para projetos de arquitetura de dados, engenharia de IA ou consultoria técnica.' : 'Feel free to reach out for data architecture consulting, AI engineering projects, or technical collaboration.'}</p>
         
-        <div class="code-card" style="max-width: 500px;">
+        <div class="code-card" style="max-width: 550px;">
           <ul style="list-style: none; padding: 0; margin: 0; line-height: 2.2; font-size: 14px;">
             <li>📧 <strong>Email</strong>: <a href="mailto:${c.email}" style="color: var(--accent-cyan);">${escapeHtml(c.email)}</a></li>
             <li>📱 <strong>Phone</strong>: ${escapeHtml(c.phone)}</li>
@@ -399,6 +342,8 @@ ${s.biAndAnalytics.map(x => `- ${x}`).join('\n')}`;
         </div>
       </div>
     `;
+
+    updateContentLineNumbers(lineNumElem, contentElem);
   }
 
   async function renderMarkdownArticle(path, lineNumElem, contentElem) {
@@ -413,18 +358,21 @@ ${s.biAndAnalytics.map(x => `- ${x}`).join('\n')}`;
       }
     }
 
-    updateLineNumbers(lineNumElem, mdText);
     const parsedHtml = parseSimpleMarkdown(mdText);
     contentElem.innerHTML = `<div class="markdown-article">${parsedHtml}</div>`;
+    updateContentLineNumbers(lineNumElem, contentElem);
   }
 
-  function updateLineNumbers(lineNumElem, text) {
-    const linesCount = text.split('\n').length;
-    let numbersHtml = '';
-    for (let i = 1; i <= linesCount; i++) {
-      numbersHtml += `${i}<br>`;
-    }
-    lineNumElem.innerHTML = numbersHtml;
+  function updateContentLineNumbers(lineNumElem, contentElem) {
+    setTimeout(() => {
+      const height = contentElem.offsetHeight || 400;
+      const linesCount = Math.max(15, Math.ceil(height / 22));
+      let numbersHtml = '';
+      for (let i = 1; i <= linesCount; i++) {
+        numbersHtml += `${i}<br>`;
+      }
+      lineNumElem.innerHTML = numbersHtml;
+    }, 50);
   }
 
   function parseSimpleMarkdown(md) {
@@ -463,7 +411,6 @@ ${s.biAndAnalytics.map(x => `- ${x}`).join('\n')}`;
       });
     }
 
-    // Toggle / Hide Sidebar Pane
     const toggleExplorer = document.getElementById('btn-toggle-explorer');
     const closeSidebar = document.getElementById('btn-close-sidebar');
     const sidebar = document.getElementById('sidebar-pane');
@@ -488,7 +435,6 @@ ${s.biAndAnalytics.map(x => `- ${x}`).join('\n')}`;
     if (toggleExplorer) toggleExplorer.addEventListener('click', () => toggleSidebarState());
     if (closeSidebar) closeSidebar.addEventListener('click', () => toggleSidebarState(true));
 
-    // Toggle / Hide Copilot Pane
     const toggleCopilot = document.getElementById('btn-toggle-copilot');
     const closeCopilot = document.getElementById('btn-close-copilot');
     const copilotPane = document.getElementById('copilot-pane');
@@ -513,7 +459,6 @@ ${s.biAndAnalytics.map(x => `- ${x}`).join('\n')}`;
     if (toggleCopilot) toggleCopilot.addEventListener('click', () => toggleCopilotState());
     if (closeCopilot) closeCopilot.addEventListener('click', () => toggleCopilotState(true));
 
-    // Keyboard Shortcuts (Ctrl+K for Search, Ctrl+B for Sidebar)
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
