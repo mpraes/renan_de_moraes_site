@@ -1,5 +1,5 @@
 /**
- * VS Code IDE Layout & Workspace Manager - Renan De Moraes Portfolio (Bilingual EN / PT-BR)
+ * VS Code IDE Layout & Workspace Manager - Renan De Moraes Portfolio (All src files in Markdown)
  */
 
 (function () {
@@ -8,19 +8,19 @@
   // Global State
   let portfolioRawData = null;
   let currentLang = localStorage.getItem('ide_lang') || 'en';
-  const openTabs = ['src/profile.ts'];
-  let activeTab = 'src/profile.ts';
+  const openTabs = ['src/profile.md'];
+  let activeTab = 'src/profile.md';
   const articleCache = {};
 
-  // File Registry Definition
+  // File Registry Definition - ALL src files are Markdown (.md)
   const fileRegistry = [
     {
       folder: 'src',
       files: [
-        { path: 'src/profile.ts', name: 'profile.ts', lang: 'TypeScript', iconClass: 'icon-ts', icon: '📄' },
-        { path: 'src/experience.json', name: 'experience.json', lang: 'JSON', iconClass: 'icon-json', icon: '📄' },
-        { path: 'src/projects.py', name: 'projects.py', lang: 'Python', iconClass: 'icon-py', icon: '📄' },
-        { path: 'src/skills.sql', name: 'skills.sql', lang: 'SQL', iconClass: 'icon-sql', icon: '📄' },
+        { path: 'src/profile.md', name: 'profile.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' },
+        { path: 'src/experience.md', name: 'experience.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' },
+        { path: 'src/projects.md', name: 'projects.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' },
+        { path: 'src/skills.md', name: 'skills.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' },
         { path: 'src/contact.md', name: 'contact.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' }
       ]
     },
@@ -212,14 +212,14 @@
       return;
     }
 
-    if (activeTab === 'src/profile.ts') {
-      renderProfileTS(data.profile, lineNumbers, lineContent);
-    } else if (activeTab === 'src/experience.json') {
-      renderExperienceJSON(data.experience, lineNumbers, lineContent);
-    } else if (activeTab === 'src/projects.py') {
-      renderProjectsPY(data.projects, lineNumbers, lineContent);
-    } else if (activeTab === 'src/skills.sql') {
-      renderSkillsSQL(data.skills, lineNumbers, lineContent);
+    if (activeTab === 'src/profile.md' || activeTab === 'src/profile.ts') {
+      renderProfileMD(data.profile, lineNumbers, lineContent);
+    } else if (activeTab === 'src/experience.md' || activeTab === 'src/experience.json') {
+      renderExperienceMD(data.experience, lineNumbers, lineContent);
+    } else if (activeTab === 'src/projects.md' || activeTab === 'src/projects.py') {
+      renderProjectsMD(data.projects, lineNumbers, lineContent);
+    } else if (activeTab === 'src/skills.md' || activeTab === 'src/skills.sql') {
+      renderSkillsMD(data.skills, lineNumbers, lineContent);
     } else if (activeTab === 'src/contact.md') {
       renderContactMD(data.contact, lineNumbers, lineContent);
     } else if (activeTab.startsWith('articles/')) {
@@ -227,38 +227,27 @@
     }
   }
 
-  function renderProfileTS(p, lineNumElem, contentElem) {
-    const code = `/**
- * @file profile.ts
- * @author ${p.name}
- * @role ${p.title}
- * @location ${p.location}
- * @language ${currentLang.toUpperCase()}
- */
+  function renderProfileMD(p, lineNumElem, contentElem) {
+    const mdCode = `# ${p.name}
+> ${p.title}
+> 📍 ${p.location}
 
-export interface SeniorConsultant {
-  name: string;
-  role: string;
-  summary: string;
-  topSkills: string[];
-  certifications: string[];
-}
+## ${currentLang === 'pt' ? 'Resumo Executivo' : 'Executive Summary'}
+${p.summary}
 
-export const engineer: SeniorConsultant = {
-  name: "${p.name}",
-  role: "${p.title}",
-  summary: "${p.summary.replace(/"/g, '\\"')}",
-  topSkills: ${JSON.stringify(p.topSkills, null, 2)},
-  certifications: ${JSON.stringify(p.certifications, null, 2)}
-};`;
+## ${currentLang === 'pt' ? 'Foco de Engenharia' : 'Top Engineering Focus'}
+${p.topSkills.map(s => `- **${s}**`).join('\n')}
 
-    updateLineNumbers(lineNumElem, code);
+## ${currentLang === 'pt' ? 'Certificações' : 'Certifications'}
+${p.certifications.map(c => `- 🏆 ${c}`).join('\n')}`;
+
+    updateLineNumbers(lineNumElem, mdCode);
 
     const skillsBadges = p.topSkills.map(s => `<span class="tech-badge">${escapeHtml(s)}</span>`).join(' ');
     const certsList = p.certifications.map(c => `<li>🏆 ${escapeHtml(c)}</li>`).join('');
 
     contentElem.innerHTML = `
-      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 13px;">${escapeHtml(code)}</pre>
+      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 13px;">${escapeHtml(mdCode)}</pre>
       
       <div style="margin-top: 24px; border-top: 1px dashed var(--ide-border); padding-top: 16px; font-family: var(--font-ui);">
         <h2 style="color: var(--text-high); margin-top: 0;">👨‍💻 ${escapeHtml(p.name)}</h2>
@@ -278,9 +267,15 @@ export const engineer: SeniorConsultant = {
     `;
   }
 
-  function renderExperienceJSON(exp, lineNumElem, contentElem) {
-    const jsonStr = JSON.stringify(exp, null, 2);
-    updateLineNumbers(lineNumElem, jsonStr);
+  function renderExperienceMD(exp, lineNumElem, contentElem) {
+    const mdCode = `# ${currentLang === 'pt' ? 'Histórico de Experiência Profissional' : 'Professional Experience History'}
+
+${exp.map(item => `## ${item.role} @ ${item.company}
+*${item.period} | ${item.location}*
+
+${item.highlights.map(h => `- ${h}`).join('\n')}`).join('\n\n')}`;
+
+    updateLineNumbers(lineNumElem, mdCode);
 
     const expCards = exp.map(item => `
       <div class="code-card">
@@ -293,27 +288,23 @@ export const engineer: SeniorConsultant = {
     `).join('');
 
     contentElem.innerHTML = `
-      <div style="margin-bottom: 16px; color: var(--syn-comment); font-size: 12px;">// experience.json - ${currentLang === 'pt' ? 'Histórico Profissional' : 'Professional Career History'} (${exp.length} ${currentLang === 'pt' ? 'posições' : 'positions'})</div>
-      <div class="code-card-grid">${expCards}</div>
+      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 12px;">${escapeHtml(mdCode)}</pre>
+      <div style="margin-top: 20px; border-top: 1px dashed var(--ide-border); padding-top: 16px;">
+        <h3 style="color: var(--text-high); margin-top: 0;">${currentLang === 'pt' ? 'Trajetória Profissional' : 'Career Timeline'} (${exp.length} ${currentLang === 'pt' ? 'posições' : 'positions'})</h3>
+        <div class="code-card-grid">${expCards}</div>
+      </div>
     `;
   }
 
-  function renderProjectsPY(proj, lineNumElem, contentElem) {
-    const pythonCode = `import dataclasses
-from typing import List
+  function renderProjectsMD(proj, lineNumElem, contentElem) {
+    const mdCode = `# ${currentLang === 'pt' ? 'Projetos em Destaque' : 'Featured Projects'}
 
-@dataclasses.dataclass
-class Project:
-    title: str
-    tech_stack: List[str]
-    description: str
-    repo_url: str
+${proj.map(p => `### ${p.title}
+${p.description}
+- **Tech**: ${p.tech.join(', ')}
+- **Link**: [${p.link}](${p.link})`).join('\n\n')}`;
 
-projects: List[Project] = [
-${proj.map(p => `    Project(title="${p.title}", tech_stack=${JSON.stringify(p.tech)}, description="${p.description}", repo_url="${p.link}")`).join(',\n')}
-]`;
-
-    updateLineNumbers(lineNumElem, pythonCode);
+    updateLineNumbers(lineNumElem, mdCode);
 
     const projCards = proj.map(p => `
       <div class="code-card">
@@ -329,7 +320,7 @@ ${proj.map(p => `    Project(title="${p.title}", tech_stack=${JSON.stringify(p.t
     `).join('');
 
     contentElem.innerHTML = `
-      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 12px;">${escapeHtml(pythonCode)}</pre>
+      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 12px;">${escapeHtml(mdCode)}</pre>
       <div style="margin-top: 20px; border-top: 1px dashed var(--ide-border); padding-top: 16px;">
         <h3 style="color: var(--text-high); margin-top: 0;">${currentLang === 'pt' ? 'Projetos em Destaque & Open Source' : 'Featured Engineering & Open Source Projects'}</h3>
         <div class="code-card-grid">${projCards}</div>
@@ -337,21 +328,25 @@ ${proj.map(p => `    Project(title="${p.title}", tech_stack=${JSON.stringify(p.t
     `;
   }
 
-  function renderSkillsSQL(s, lineNumElem, contentElem) {
-    const sqlCode = `-- skills.sql - Categorized Data Engineering & AI Stack
+  function renderSkillsMD(s, lineNumElem, contentElem) {
+    const mdCode = `# ${currentLang === 'pt' ? 'Habilidades Técnicas & Stack' : 'Technical Capabilities & Stack'}
 
-SELECT 'Data Engineering' AS category, ARRAY[${s.dataEngineering.map(x => `'${x}'`).join(', ')}] AS stack
-UNION ALL
-SELECT 'Databases & Storage', ARRAY[${s.databases.map(x => `'${x}'`).join(', ')}]
-UNION ALL
-SELECT 'AI & Languages', ARRAY[${s.aiAndLanguages.map(x => `'${x}'`).join(', ')}]
-UNION ALL
-SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}];`;
+### Data Engineering
+${s.dataEngineering.map(x => `- ${x}`).join('\n')}
 
-    updateLineNumbers(lineNumElem, sqlCode);
+### Enterprise Databases
+${s.databases.map(x => `- ${x}`).join('\n')}
+
+### Applied AI & Languages
+${s.aiAndLanguages.map(x => `- ${x}`).join('\n')}
+
+### BI & Analytics
+${s.biAndAnalytics.map(x => `- ${x}`).join('\n')}`;
+
+    updateLineNumbers(lineNumElem, mdCode);
 
     contentElem.innerHTML = `
-      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-keyword); font-size: 13px;">${escapeHtml(sqlCode)}</pre>
+      <pre style="margin: 0; font-family: var(--font-mono); color: var(--syn-comment); font-size: 13px;">${escapeHtml(mdCode)}</pre>
       <div style="margin-top: 24px; border-top: 1px dashed var(--ide-border); padding-top: 16px; font-family: var(--font-ui);">
         <h3 style="color: var(--text-high); margin-top: 0;">${currentLang === 'pt' ? 'Matriz de Habilidades Técnicas' : 'Technical Capabilities Matrix'}</h3>
         <div class="code-card-grid">
@@ -518,7 +513,7 @@ SELECT 'BI & Analytics', ARRAY[${s.biAndAnalytics.map(x => `'${x}'`).join(', ')}
     if (toggleCopilot) toggleCopilot.addEventListener('click', () => toggleCopilotState());
     if (closeCopilot) closeCopilot.addEventListener('click', () => toggleCopilotState(true));
 
-    // Keyboard Shortcuts (Ctrl+K or Cmd+K for Search, Ctrl+B or Cmd+B for Sidebar)
+    // Keyboard Shortcuts (Ctrl+K for Search, Ctrl+B for Sidebar)
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();

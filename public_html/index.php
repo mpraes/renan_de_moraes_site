@@ -115,7 +115,7 @@ $pageDescription = 'Portfolio IDE de Renan De Moraes - Data & AI Engineer, Fabri
           <div class="breadcrumbs-bar" id="breadcrumbs-bar">
             <span>renan-de-moraes</span>
             <span class="breadcrumb-sep">&gt;</span>
-            <span id="breadcrumb-active-path">src > profile.ts</span>
+            <span id="breadcrumb-active-path">src > profile.md</span>
           </div>
 
           <!-- Code Buffer Container -->

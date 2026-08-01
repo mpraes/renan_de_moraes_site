@@ -14,11 +14,11 @@
         en: `🔥 <strong>Microsoft Fabric & Lakehouse Experience:</strong><br>
 Renan has extensive experience architecting Microsoft Fabric Lakehouses (Medallion architecture) managing 30+ production tables, multi-country reporting pipelines (BR/AR/CL/PE), and automated Fabric-Oracle EBS connectors replacing legacy Excel workflows.<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📝 Read Fabric Architecture Article</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/experience.json')">📂 View Experience File</button>`,
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/experience.md')">📂 View Experience File</button>`,
         pt: `🔥 <strong>Experiência com Microsoft Fabric & Lakehouse:</strong><br>
 Renan possui ampla experiência em arquitetura de Lakehouses no Microsoft Fabric (arquitetura Medallion) gerenciando 30+ tabelas em produção, pipelines multicountry (BR/AR/CL/PE) e conectores automatizados Fabric-Oracle EBS substituindo processos manuais em Excel.<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📝 Ler Artigo de Arquitetura Fabric</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/experience.json')">📂 Ver Histórico de Experiência</button>`
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/experience.md')">📂 Ver Histórico de Experiência</button>`
       }
     },
     {
@@ -28,11 +28,11 @@ Renan possui ampla experiência em arquitetura de Lakehouses no Microsoft Fabric
         en: `🤖 <strong>Applied AI & LangGraph Multi-Agent Systems:</strong><br>
 Renan built N1 support automation handling 20-50 tickets/day using LangGraph with deterministic regex fallbacks, Databricks OAuth, and Prometheus observability. He also developed WhatsApp chatbots with long-term memory (LangGraph + Redis ElastiCache).<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📝 Read LangGraph Agent Article</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/projects.py')">📂 View AI Projects</button>`,
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/projects.md')">📂 View AI Projects</button>`,
         pt: `🤖 <strong>IA Aplicada & Agentes Multi-Agente LangGraph:</strong><br>
 Renan desenvolveu automação de suporte N1 resolvendo 20-50 chamados/dia usando LangGraph com fallback determinístico via regex, OAuth Databricks e observabilidade via Prometheus. Também construiu chatbots para WhatsApp com memória de longo prazo (LangGraph + Redis).<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📝 Ler Artigo sobre Agentes de IA</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/projects.py')">📂 Ver Projetos de IA</button>`
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/projects.md')">📂 Ver Projetos de IA</button>`
       }
     },
     {
@@ -42,11 +42,11 @@ Renan desenvolveu automação de suporte N1 resolvendo 20-50 chamados/dia usando
         en: `⚡ <strong>High-Volume SAP HANA Migrations:</strong><br>
 Renan engineered a custom Python parallel processing framework (multiprocessing/threading) and ABAP export routines that successfully migrated 1,000+ tables and over 200M rows from SAP HANA Cloud to Oracle Exadata.<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/03-high-volume-sap-migrations.md')">📝 Read SAP Migration Article</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/experience.json')">📂 View Experience File</button>`,
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/experience.md')">📂 View Experience File</button>`,
         pt: `⚡ <strong>Migrações SAP HANA de Alto Volume:</strong><br>
 Renan desenvolveu um framework customizado em Python (multiprocessing/threading) e rotinas ABAP que migraram com sucesso 1.000+ tabelas e mais de 200 milhões de registros do SAP HANA Cloud para Oracle Exadata.<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/03-high-volume-sap-migrations.md')">📝 Ler Artigo sobre Migração SAP</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/experience.json')">📂 Ver Experiência Profissional</button>`
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/experience.md')">📂 Ver Experiência Profissional</button>`
       }
     },
     {
@@ -84,13 +84,13 @@ Confira os artigos disponíveis no ambiente IDE:<br>
 • <strong>Databases</strong>: Oracle, SQL Server, SAP HANA, PostgreSQL, PL/SQL, T-SQL.<br>
 • <strong>AI & Code</strong>: Python, TypeScript, LangGraph, FastAPI, Docker, Azure Container Apps.<br>
 • <strong>BI</strong>: Power BI, DAX, Dash/Plotly.<br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/skills.sql')">📂 View skills.sql File</button>`,
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/skills.md')">📂 View skills.md File</button>`,
         pt: `🛠️ <strong>Matriz de Habilidades Técnicas & Stack:</strong><br>
 • <strong>Eng de Dados</strong>: Microsoft Fabric, Databricks, Azure Data Factory, Synapse, Delta Lake, Trino.<br>
 • <strong>Bancos de Dados</strong>: Oracle, SQL Server, SAP HANA, PostgreSQL, PL/SQL, T-SQL.<br>
 • <strong>IA & Código</strong>: Python, TypeScript, LangGraph, FastAPI, Docker, Azure Container Apps.<br>
 • <strong>BI</strong>: Power BI, DAX, Dash/Plotly.<br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/skills.sql')">📂 Ver Arquivo skills.sql</button>`
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/skills.md')">📂 Ver Arquivo skills.md</button>`
       }
     },
     {
@@ -201,7 +201,7 @@ Confira os artigos disponíveis no ambiente IDE:<br>
 • Agentes de IA em <strong>LangGraph</strong><br>
 • Migrações de <strong>200M+ linhas no SAP</strong><br>
 • <strong>Artigos Técnicos</strong> e Blog<br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/profile.ts')">📂 Abrir Perfil</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/profile.md')">📂 Abrir Perfil</button>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📝 Ler Blog</button>`);
       } else {
         addBotMessage(`💡 I can help you explore Renan's background! Try asking about:<br>
@@ -209,7 +209,7 @@ Confira os artigos disponíveis no ambiente IDE:<br>
 • <strong>LangGraph</strong> AI Agents & Support Automation<br>
 • <strong>SAP 200M+ Migration</strong> Projects<br>
 • <strong>Technical Articles</strong> & Blog posts<br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/profile.ts')">📂 Open Profile</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/profile.md')">📂 Open Profile</button>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📝 Read Blog</button>`);
       }
     }
