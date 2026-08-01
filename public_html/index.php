@@ -52,7 +52,7 @@ $pageDescription = 'Portfolio IDE de Renan De Moraes - Data & AI Engineer, Fabri
     <link rel="stylesheet" href="./assets/css/style.css?v=<?php echo rawurlencode($styleVersion); ?>" />
   </head>
   <body>
-    <div id="app-root">
+    <div id="app-root" class="welcome-mode">
       <!-- Window Title Bar -->
       <header class="window-header">
         <div class="window-controls">
