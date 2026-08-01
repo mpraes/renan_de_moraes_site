@@ -66,6 +66,7 @@ $pageDescription = 'Portfolio IDE de Renan De Moraes - Data & AI Engineer, Fabri
         <div class="window-search" id="cmd-palette-btn" title="Search files (Ctrl+K)">
           <span>🔍 Search workspace... (Ctrl+K)</span>
         </div>
+        <button class="header-lang-btn" id="header-lang-btn" title="Switch Language (EN / PT-BR)">🌐 EN / PT-BR</button>
       </header>
 
       <!-- Main IDE Layout Body -->

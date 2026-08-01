@@ -81,8 +81,14 @@
 
   function renderLangToggle() {
     const langElem = document.getElementById('lang-toggle-btn');
-    if (langElem) {
-      langElem.textContent = currentLang === 'en' ? '🌐 EN / PT-BR' : '🌐 PT-BR / EN';
+    const headerLangBtn = document.getElementById('header-lang-btn');
+    const welcomeLangBtn = document.getElementById('welcome-lang-btn');
+
+    const label = currentLang === 'en' ? '🌐 EN / PT-BR' : '🌐 PT-BR / EN';
+    if (langElem) langElem.textContent = label;
+    if (headerLangBtn) headerLangBtn.textContent = label;
+    if (welcomeLangBtn) {
+      welcomeLangBtn.textContent = currentLang === 'en' ? '🌐 Mudar para Português (PT-BR)' : '🌐 Switch to English (EN)';
     }
   }
 
@@ -256,9 +262,14 @@
             ? 'Explore projetos de arquitetura de dados enterprise, repositórios open-source populares no GitHub, artigos técnicos e um assistente de IA heurístico integrado.' 
             : 'Explore enterprise data architecture projects, popular open-source repositories, technical blog posts, and an interactive AI copilot.'}
         </p>
-        <button class="btn-access-now" id="btn-access-now">
-          🚀 ${currentLang === 'pt' ? 'Acessar Agora' : 'Access Now'} →
-        </button>
+        <div style="display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap;">
+          <button class="btn-access-now" id="btn-access-now">
+            🚀 ${currentLang === 'pt' ? 'Acessar Agora' : 'Access Now'} →
+          </button>
+          <button class="btn-lang-welcome" id="welcome-lang-btn">
+            🌐 ${currentLang === 'en' ? 'Mudar para Português (PT-BR)' : 'Switch to English (EN)'}
+          </button>
+        </div>
         <div class="welcome-shortcuts">
           <div class="welcome-shortcut-item">📁 <strong>Files</strong>: src/profile.md</div>
           <div class="welcome-shortcut-item">⭐ <strong>Projects</strong>: projects/</div>
@@ -273,6 +284,11 @@
       accessBtn.addEventListener('click', () => {
         openFile('src/profile.md');
       });
+    }
+
+    const welcomeLangBtn = document.getElementById('welcome-lang-btn');
+    if (welcomeLangBtn) {
+      welcomeLangBtn.addEventListener('click', toggleLanguage);
     }
   }
 
@@ -427,6 +443,11 @@
     const langToggleBtn = document.getElementById('lang-toggle-btn');
     if (langToggleBtn) {
       langToggleBtn.addEventListener('click', toggleLanguage);
+    }
+
+    const headerLangBtn = document.getElementById('header-lang-btn');
+    if (headerLangBtn) {
+      headerLangBtn.addEventListener('click', toggleLanguage);
     }
 
     const cmdBtn = document.getElementById('cmd-palette-btn');

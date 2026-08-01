@@ -835,3 +835,42 @@ html, body {
 #app-root.welcome-mode .editor-buffer-container {
   background-color: var(--ide-bg);
 }
+
+.header-lang-btn {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: var(--accent-cyan);
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 12px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.header-lang-btn:hover {
+  background: rgba(56, 189, 248, 0.3);
+  transform: scale(1.03);
+}
+
+.btn-lang-welcome {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 15px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-lang-welcome:hover {
+  background: rgba(56, 189, 248, 0.2);
+  transform: translateY(-2px);
+}
