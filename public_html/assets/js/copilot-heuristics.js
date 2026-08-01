@@ -28,11 +28,11 @@ Renan possui ampla experiência em arquitetura de Lakehouses no Microsoft Fabric
         en: `🤖 <strong>Applied AI & LangGraph Multi-Agent Systems:</strong><br>
 Renan built N1 support automation handling 20-50 tickets/day using LangGraph with deterministic regex fallbacks, Databricks OAuth, and Prometheus observability. He also developed WhatsApp chatbots with long-term memory (LangGraph + Redis ElastiCache).<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📝 Read LangGraph Agent Article</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/projects.md')">📂 View AI Projects</button>`,
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/pandas-pipeline-agent.md')">⭐ View AI Agent Project</button>`,
         pt: `🤖 <strong>IA Aplicada & Agentes Multi-Agente LangGraph:</strong><br>
 Renan desenvolveu automação de suporte N1 resolvendo 20-50 chamados/dia usando LangGraph com fallback determinístico via regex, OAuth Databricks e observabilidade via Prometheus. Também construiu chatbots para WhatsApp com memória de longo prazo (LangGraph + Redis).<br><br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📝 Ler Artigo sobre Agentes de IA</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/projects.md')">📂 Ver Projetos de IA</button>`
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/pandas-pipeline-agent.md')">⭐ Ver Projeto de Agentes IA</button>`
       }
     },
     {
@@ -73,6 +73,28 @@ Confira os artigos disponíveis no ambiente IDE:<br>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/02-langgraph-n1-support-agent.md')">📖 Abrir Artigo 2</button>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/03-high-volume-sap-migrations.md')">📖 Abrir Artigo 3</button>
 <button class="chat-chip" onclick="window.IDEManager.openFile('articles/04-constrained-data-engineering.md')">📖 Abrir Artigo 4</button>`
+      }
+    },
+    {
+      intent: 'PROJECTS_STARRED',
+      keywords: ['project', 'projects', 'projeto', 'projetos', 'github', 'starred', 'stars', 'quickelt', 'ingestao', 'limite', 'repo'],
+      response: {
+        en: `⭐ <strong>Top GitHub Starred Projects:</strong><br>
+Explore Renan's top starred GitHub repositories in the <strong>projects/</strong> folder:<br>
+• <strong>QuickELT</strong> (⭐ 31 Stars) — Data Engineering ELT Template<br>
+• <strong>Ingestão no Limite</strong> (⭐ 24 Stars) — 70M Lightweight Hardware Challenge<br>
+• <strong>Pandas Pipeline Agent</strong> (⭐ 10 Stars) — AI Data Cleaning Generator<br>
+• <strong>Awesome Faith Tech</strong> (⭐ 8 Stars) — Faith & Tech Resources<br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/quickelt.md')">⭐ QuickELT (31★)</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/ingestao-no-limite.md')">⭐ Ingestão no Limite (24★)</button>`,
+        pt: `⭐ <strong>Projetos Mais Populares no GitHub (Starred):</strong><br>
+Explore os repositórios mais estrelados do Renan na pasta <strong>projects/</strong>:<br>
+• <strong>QuickELT</strong> (⭐ 31 Stars) — Template de Engenharia de Dados<br>
+• <strong>Ingestão no Limite</strong> (⭐ 24 Stars) — Desafio 70M em Hardware Leve<br>
+• <strong>Pandas Pipeline Agent</strong> (⭐ 10 Stars) — Gerador de Pipelines com IA<br>
+• <strong>Awesome Faith Tech</strong> (⭐ 8 Stars) — Recursos de Fé & Tecnologia<br><br>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/quickelt.md')">⭐ QuickELT (31★)</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/ingestao-no-limite.md')">⭐ Ingestão no Limite (24★)</button>`
       }
     },
     {
@@ -197,20 +219,20 @@ Confira os artigos disponíveis no ambiente IDE:<br>
     } else {
       if (lang === 'pt') {
         addBotMessage(`💡 Posso ajudar a explorar a trajetória do Renan! Tente perguntar sobre:<br>
+• <strong>Projetos no GitHub</strong> (QuickELT, Ingestão no Limite)<br>
 • <strong>Microsoft Fabric</strong> & Arquitetura Lakehouse<br>
 • Agentes de IA em <strong>LangGraph</strong><br>
-• Migrações de <strong>200M+ linhas no SAP</strong><br>
 • <strong>Artigos Técnicos</strong> e Blog<br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/profile.md')">📂 Abrir Perfil</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📝 Ler Blog</button>`);
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/quickelt.md')">⭐ QuickELT (31★)</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/profile.md')">📂 Abrir Perfil</button>`);
       } else {
         addBotMessage(`💡 I can help you explore Renan's background! Try asking about:<br>
+• <strong>GitHub Starred Projects</strong> (QuickELT, Ingestão no Limite)<br>
 • <strong>Microsoft Fabric</strong> & Lakehouse Architecture<br>
 • <strong>LangGraph</strong> AI Agents & Support Automation<br>
-• <strong>SAP 200M+ Migration</strong> Projects<br>
 • <strong>Technical Articles</strong> & Blog posts<br><br>
-<button class="chat-chip" onclick="window.IDEManager.openFile('src/profile.md')">📂 Open Profile</button>
-<button class="chat-chip" onclick="window.IDEManager.openFile('articles/01-fabric-medallion-architecture.md')">📝 Read Blog</button>`);
+<button class="chat-chip" onclick="window.IDEManager.openFile('projects/quickelt.md')">⭐ QuickELT (31★)</button>
+<button class="chat-chip" onclick="window.IDEManager.openFile('src/profile.md')">📂 Open Profile</button>`);
       }
     }
   }

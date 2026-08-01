@@ -1,5 +1,5 @@
 /**
- * VS Code IDE Layout & Workspace Manager - Renan De Moraes Portfolio (Clean Rendered View)
+ * VS Code IDE Layout & Workspace Manager - Renan De Moraes Portfolio (With GitHub Starred Projects Folder)
  */
 
 (function () {
@@ -16,12 +16,25 @@
   const fileRegistry = [
     {
       folder: 'src',
+      folderName: 'src 📁',
       files: [
         { path: 'src/profile.md', name: 'profile.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' },
         { path: 'src/experience.md', name: 'experience.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' },
-        { path: 'src/projects.md', name: 'projects.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' },
         { path: 'src/skills.md', name: 'skills.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' },
         { path: 'src/contact.md', name: 'contact.md', lang: 'Markdown', iconClass: 'icon-md', icon: '📄' }
+      ]
+    },
+    {
+      folder: 'projects',
+      folderName: 'projects (starred) ⭐',
+      files: [
+        { path: 'projects/quickelt.md', name: 'quickelt.md', title: 'QuickELT ⭐ 31', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
+        { path: 'projects/ingestao-no-limite.md', name: 'ingestao-no-limite.md', title: 'Ingestão no Limite ⭐ 24', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
+        { path: 'projects/pandas-pipeline-agent.md', name: 'pandas-pipeline-agent.md', title: 'Pandas Pipeline Agent ⭐ 10', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
+        { path: 'projects/awesome-faith-tech.md', name: 'awesome-faith-tech.md', title: 'Awesome Faith Tech ⭐ 8', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
+        { path: 'projects/webapp-gas-mais-barato.md', name: 'webapp-gas-mais-barato.md', title: 'Gás Mais Barato ⭐ 6', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
+        { path: 'projects/data-scout.md', name: 'data-scout.md', title: 'Data Scout ⭐ 5', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' },
+        { path: 'projects/single-node-dw.md', name: 'single-node-dw.md', title: 'Single Node DW ⭐ 5', lang: 'Markdown', iconClass: 'icon-md', icon: '⭐' }
       ]
     },
     {
@@ -216,13 +229,11 @@
       renderProfileMD(data.profile, lineNumbers, lineContent);
     } else if (activeTab === 'src/experience.md' || activeTab === 'src/experience.json') {
       renderExperienceMD(data.experience, lineNumbers, lineContent);
-    } else if (activeTab === 'src/projects.md' || activeTab === 'src/projects.py') {
-      renderProjectsMD(data.projects, lineNumbers, lineContent);
     } else if (activeTab === 'src/skills.md' || activeTab === 'src/skills.sql') {
       renderSkillsMD(data.skills, lineNumbers, lineContent);
     } else if (activeTab === 'src/contact.md') {
       renderContactMD(data.contact, lineNumbers, lineContent);
-    } else if (activeTab.startsWith('articles/')) {
+    } else if (activeTab.startsWith('projects/') || activeTab.startsWith('articles/')) {
       await renderMarkdownArticle(activeTab, lineNumbers, lineContent);
     }
   }
@@ -238,7 +249,7 @@
         <p style="line-height: 1.7; font-size: 14px; color: var(--text-main);">${escapeHtml(p.summary)}</p>
         
         <div style="margin: 24px 0;">
-          <h3 style="color: var(--text-high); margin-bottom: 12px; font-size: 16px;">${currentLang === 'pt' ? '🎯 Foco Principais em Engenharia' : '🎯 Top Engineering Focus'}</h3>
+          <h3 style="color: var(--text-high); margin-bottom: 12px; font-size: 16px;">${currentLang === 'pt' ? '🎯 Foco Principal em Engenharia' : '🎯 Top Engineering Focus'}</h3>
           <div class="tech-badge-container" style="gap: 8px;">${skillsBadges}</div>
         </div>
 
@@ -267,30 +278,6 @@
       <div style="font-family: var(--font-ui);">
         <h2 style="color: var(--text-high); margin-top: 0; border-bottom: 1px solid var(--ide-border); padding-bottom: 8px;">💼 ${currentLang === 'pt' ? 'Trajetória Profissional' : 'Professional Experience Timeline'} (${exp.length} ${currentLang === 'pt' ? 'posições' : 'positions'})</h2>
         <div class="code-card-grid" style="margin-top: 16px;">${expCards}</div>
-      </div>
-    `;
-
-    updateContentLineNumbers(lineNumElem, contentElem);
-  }
-
-  function renderProjectsMD(proj, lineNumElem, contentElem) {
-    const projCards = proj.map(p => `
-      <div class="code-card">
-        <h3 class="code-card-title">🚀 ${escapeHtml(p.title)}</h3>
-        <p style="font-size: 13px; color: var(--text-main); line-height: 1.6;">${escapeHtml(p.description)}</p>
-        <div class="tech-badge-container">
-          ${p.tech.map(t => `<span class="tech-badge">${escapeHtml(t)}</span>`).join('')}
-        </div>
-        <div style="margin-top: 14px;">
-          <a href="${p.link}" target="_blank" rel="noopener" style="color: var(--accent-cyan); font-weight: 600; text-decoration: none; font-size: 12px;">🔗 ${currentLang === 'pt' ? 'Ver Repositório' : 'View Repository'} →</a>
-        </div>
-      </div>
-    `).join('');
-
-    contentElem.innerHTML = `
-      <div style="font-family: var(--font-ui);">
-        <h2 style="color: var(--text-high); margin-top: 0; border-bottom: 1px solid var(--ide-border); padding-bottom: 8px;">🚀 ${currentLang === 'pt' ? 'Projetos em Destaque & Open Source' : 'Featured Engineering & Open Source Projects'}</h2>
-        <div class="code-card-grid" style="margin-top: 16px;">${projCards}</div>
       </div>
     `;
 
@@ -354,7 +341,7 @@
         mdText = await res.text();
         articleCache[path] = mdText;
       } catch (e) {
-        mdText = `# Article Not Found\nCould not load article at ${path}`;
+        mdText = `# File Not Found\nCould not load file at ${path}`;
       }
     }
 
