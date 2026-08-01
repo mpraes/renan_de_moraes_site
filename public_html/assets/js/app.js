@@ -8,8 +8,8 @@
   // Global State
   let portfolioRawData = null;
   let currentLang = localStorage.getItem('ide_lang') || 'en';
-  const openTabs = ['src/profile.md'];
-  let activeTab = 'src/profile.md';
+  const openTabs = [];
+  let activeTab = '';
   const articleCache = {};
 
   // File Registry Definition
@@ -219,9 +219,8 @@
 
     const data = getActiveLangData();
 
-    if (!activeTab || !data) {
-      lineNumbers.innerHTML = '1';
-      lineContent.innerHTML = `<p style="color: var(--text-muted); padding: 20px;">Select a file from the explorer on the left to view its contents.</p>`;
+    if (!activeTab || activeTab === 'welcome' || !data) {
+      renderWelcomeLanding(lineNumbers, lineContent);
       return;
     }
 
@@ -235,6 +234,39 @@
       renderContactMD(data.contact, lineNumbers, lineContent);
     } else if (activeTab.startsWith('projects/') || activeTab.startsWith('articles/')) {
       await renderMarkdownArticle(activeTab, lineNumbers, lineContent);
+    }
+  }
+
+  function renderWelcomeLanding(lineNumElem, contentElem) {
+    if (lineNumElem) lineNumElem.innerHTML = '1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15';
+    
+    contentElem.innerHTML = `
+      <div class="welcome-landing">
+        <div class="welcome-logo-badge">🚀 RENAN DE MORAES | PORTFOLIO IDE</div>
+        <h1 class="welcome-title">${currentLang === 'pt' ? 'Bem-vindo ao Meu Portfolio IDE' : 'Welcome to My Engineering Workspace'}</h1>
+        <div class="welcome-subtitle">Data Engineer | Microsoft Fabric & Azure | Data Architecture | Applied AI</div>
+        <p class="welcome-desc">
+          ${currentLang === 'pt' 
+            ? 'Explore projetos de arquitetura de dados enterprise, repositórios open-source populares no GitHub, artigos técnicos e um assistente de IA heurístico integrado.' 
+            : 'Explore enterprise data architecture projects, popular open-source repositories, technical blog posts, and an interactive AI copilot.'}
+        </p>
+        <button class="btn-access-now" id="btn-access-now">
+          🚀 ${currentLang === 'pt' ? 'Acessar Agora' : 'Access Now'} →
+        </button>
+        <div class="welcome-shortcuts">
+          <div class="welcome-shortcut-item">📁 <strong>Files</strong>: src/profile.md</div>
+          <div class="welcome-shortcut-item">⭐ <strong>Projects</strong>: projects/</div>
+          <div class="welcome-shortcut-item">📝 <strong>Blog</strong>: articles/</div>
+          <div class="welcome-shortcut-item">🤖 <strong>Copilot</strong>: Instant AI Chat</div>
+        </div>
+      </div>
+    `;
+
+    const accessBtn = document.getElementById('btn-access-now');
+    if (accessBtn) {
+      accessBtn.addEventListener('click', () => {
+        openFile('src/profile.md');
+      });
     }
   }
 

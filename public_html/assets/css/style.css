@@ -722,3 +722,97 @@ html, body {
     transform: translateX(0);
   }
 }
+
+/* Welcome Landing Hero Screen */
+.welcome-landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100%;
+  padding: 40px 20px;
+  background: radial-gradient(circle at center, rgba(14, 99, 156, 0.25) 0%, rgba(30, 30, 30, 0.98) 75%);
+  font-family: var(--font-ui);
+}
+
+.welcome-logo-badge {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--accent-cyan);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.welcome-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-high);
+  margin: 0 0 12px 0;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.welcome-subtitle {
+  font-size: 16px;
+  color: var(--accent-cyan);
+  margin: 0 0 24px 0;
+  max-width: 620px;
+  line-height: 1.6;
+}
+
+.welcome-desc {
+  font-size: 14px;
+  color: var(--text-main);
+  max-width: 580px;
+  margin: 0 auto 32px auto;
+  line-height: 1.7;
+}
+
+.btn-access-now {
+  background: linear-gradient(135deg, #0e639c 0%, #007acc 100%);
+  color: #ffffff !important;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 16px 42px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0, 122, 204, 0.45);
+  transition: transform 0.2s var(--ease-standard), box-shadow 0.2s var(--ease-standard), background 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.btn-access-now:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(0, 122, 204, 0.7);
+  background: linear-gradient(135deg, #1177bb 0%, #0098ff 100%);
+}
+
+.welcome-shortcuts {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.welcome-shortcut-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--ide-border);
+  padding: 6px 14px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
