@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://renan-de-moraes.com/sitemap.xml
